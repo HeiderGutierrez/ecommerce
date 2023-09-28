@@ -26,17 +26,20 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        return await dbUsers.checkUserEmailPassword(credentials!.email, credentials!.password);
+        return await dbUsers.checkUserEmailPassword(
+          credentials!.email,
+          credentials!.password
+        );
       },
     }),
   ],
   pages: {
-    signIn: '/auth/login',
-    newUser: '/auth/register',
+    signIn: "/auth/login",
+    newUser: "/auth/register",
   },
   session: {
     maxAge: 2592000, // 30d
-    strategy: 'jwt',
+    strategy: "jwt",
     updateAge: 86400, // cada día
   },
   callbacks: {
@@ -48,7 +51,10 @@ export const authOptions: NextAuthOptions = {
             token.user = user;
             break;
           case "oauth":
-            token.user = await dbUsers.oAuthToDbUser(user?.email || '', user?.name || '');
+            token.user = await dbUsers.oAuthToDbUser(
+              user?.email || "",
+              user?.name || ""
+            );
             break;
         }
       }
@@ -62,4 +68,6 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-export default NextAuth(authOptions);
+const authInstance = NextAuth(authOptions);
+
+export default authInstance;

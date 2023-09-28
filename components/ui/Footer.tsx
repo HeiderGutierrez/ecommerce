@@ -265,6 +265,8 @@ export const Footer = () => {
                     <Image
                       src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
                       alt={item.title}
+                      width={50}
+                      height={50}
                     />
                   </ImageListItem>
                 ))}

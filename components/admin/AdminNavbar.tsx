@@ -8,33 +8,39 @@ import {
   IconButton,
 } from "@mui/material";
 import NextLink from "next/link";
-import { MenuOutlined } from "@mui/icons-material";
+import MenuIcon from "../../public/icons/menu.svg";
 import { useContext } from "react";
 import { UiContext } from "@/context";
+import Image from 'next/image';
 
 export const AdminNavbar = () => {
   const { openSideMenu } = useContext(UiContext);
 
   return (
-    <AppBar>
+    <AppBar sx={{width: '100%', height: '70px'}}>
       <Toolbar
-        style={{
+        sx={{
           margin: "0 auto",
           maxWidth: "1400px",
           width: "100%",
-          padding: 0,
-          borderBottom: "1px solid #D9D9D9",
+          height: "100%",
+          padding: { xs: "0 20px", md: 0 },
           backgroundColor: "#fff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
         <NextLink href={"/"} passHref legacyBehavior>
           <Link display={"flex"} alignItems={"center"}>
-            <Typography variant="h1">Expression</Typography>
+            <Typography variant="h1" sx={{ fontSize: { xs: 20, md: 30 }, textTransform: 'uppercase' }}>
+              Expre<span style={{fontWeight: 500}} >ssion</span>
+            </Typography>
           </Link>
         </NextLink>
         <Box flex={1} />
         <IconButton onClick={openSideMenu}>
-          <MenuOutlined />
+          <Image src={MenuIcon} alt="Menu Icon" />
         </IconButton>
       </Toolbar>
     </AppBar>

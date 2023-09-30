@@ -38,6 +38,7 @@ import { useForm } from "react-hook-form";
 import { tesloApi } from "@/api";
 import { useRouter } from "next/router";
 import { Product } from "@/models";
+import Upload from "../../../public/icons/upload.svg";
 
 const validTypes = ["shirts", "pants", "hoodies", "hats"];
 const validGender = ["men", "women", "kid", "unisex"];
@@ -179,12 +180,22 @@ const ProductAdminPage = ({ product }: Props) => {
   return (
     <>
       <AdminLayout
-        title={"Producto"}
+        title={"Admin | Product"}
         subTitle={`Editando: ${product.title}`}
         icon={<DriveFileRenameOutline />}
       >
         <form onSubmit={handleSubmit(onSubmitForm)}>
-          <Box display="flex" justifyContent="end" sx={{ mb: 1 }}>
+          <Box
+            display="flex"
+            justifyContent="end"
+            sx={{
+              mb: 1,
+              width: "100%",
+              ".MuiOutlinedInput-root": {
+                borderRadius: 0,
+              },
+            }}
+          >
             <Button
               color="primary"
               variant="contained"
@@ -199,239 +210,320 @@ const ProductAdminPage = ({ product }: Props) => {
 
           <Grid container spacing={2}>
             {/* Data */}
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="Título"
-                variant="filled"
-                fullWidth
-                sx={{ mb: 1 }}
-                {...register("title", {
-                  required: "Este campo es requerido",
-                  minLength: { value: 2, message: "Mínimo 2 caracteres" },
-                })}
-                error={!!errors.title}
-                helperText={errors.title?.message}
-              />
-
-              <TextField
-                label="Descripción"
-                variant="filled"
-                fullWidth
-                multiline
-                maxRows={4}
-                sx={{ mb: 1 }}
-                {...register("description", {
-                  required: "Este campo es requerido",
-                })}
-                error={!!errors.description}
-                helperText={errors.description?.message}
-              />
-
-              <TextField
-                label="Inventario"
-                type="number"
-                variant="filled"
-                fullWidth
-                sx={{ mb: 1 }}
-                {...register("inStock", {
-                  required: "Este campo es requerido",
-                  minLength: { value: 0, message: "El valor mínimo debe ser 0" },
-                })}
-                error={!!errors.inStock}
-                helperText={errors.inStock?.message}
-              />
-
-              <TextField
-                label="Precio"
-                type="number"
-                variant="filled"
-                fullWidth
-                sx={{ mb: 1 }}
-                {...register("price", {
-                  required: "Este campo es requerido",
-                  minLength: { value: 0, message: "El valor mínimo debe ser 0" },
-                })}
-                error={!!errors.price}
-                helperText={errors.price?.message}
-              />
-
-              <Divider sx={{ my: 1 }} />
-
-              <FormControl sx={{ mb: 1 }}>
-                <FormLabel>Tipo</FormLabel>
-                <RadioGroup
-                  row
-                  value={getValues("type")}
-                  onChange={({ target }) =>
-                    setValue("type", target.value, { shouldValidate: true })
-                  }
-                >
-                  {validTypes.map((option) => (
-                    <FormControlLabel
-                      key={option}
-                      value={option}
-                      control={<Radio color="primary" />}
-                      label={capitalize(option)}
-                    />
-                  ))}
-                </RadioGroup>
-              </FormControl>
-
-              <FormControl sx={{ mb: 1 }}>
-                <FormLabel>Género</FormLabel>
-                <RadioGroup
-                  row
-                  value={getValues("gender")}
-                  onChange={({ target }) =>
-                    setValue("gender", target.value, { shouldValidate: true })
-                  }
-                >
-                  {validGender.map((option) => (
-                    <FormControlLabel
-                      key={option}
-                      value={option}
-                      control={<Radio color="primary" />}
-                      label={capitalize(option)}
-                    />
-                  ))}
-                </RadioGroup>
-              </FormControl>
-
-              <FormGroup>
-                <FormLabel>Tallas</FormLabel>
-                {validSizes.map((size) => (
-                  <FormControlLabel
-                    key={size}
-                    control={
-                      <Checkbox checked={getValues("sizes").includes(size)} />
-                    }
-                    label={size}
-                    onChange={() => onChangeSize(size)}
+            <Grid item xs={12} md={6} container>
+              <Grid item container>
+                <Grid item container gap={3}>
+                  <TextField
+                    label="Título"
+                    variant="outlined"
+                    size="small"
+                    sx={{
+                      width: { xs: "100%", md: "48%" },
+                      ".MuiOutlinedInput-root": {
+                        borderRadius: 0,
+                      },
+                    }}
+                    {...register("title", {
+                      required: "Este campo es requerido",
+                      minLength: { value: 2, message: "Mínimo 2 caracteres" },
+                    })}
+                    error={!!errors.title}
+                    helperText={errors.title?.message}
                   />
-                ))}
-              </FormGroup>
+
+                  <TextField
+                    label="Slug - URL"
+                    variant="outlined"
+                    size="small"
+                    sx={{
+                      width: { xs: "100%", md: "48%" },
+                      ".MuiOutlinedInput-root": {
+                        borderRadius: 0,
+                      },
+                    }}
+                    {...register("slug", {
+                      required: "Este campo es requerido",
+                      validate: (val) =>
+                        val.trim().includes(" ")
+                          ? "No se pueden tener espaciós en blanco"
+                          : undefined,
+                    })}
+                    error={!!errors.slug}
+                    helperText={errors.slug?.message}
+                  />
+
+                  <TextField
+                    label="Descripción"
+                    variant="outlined"
+                    size="small"
+                    multiline
+                    maxRows={4}
+                    sx={{
+                      width: "99%",
+                      ".MuiOutlinedInput-root": {
+                        borderRadius: 0,
+                      },
+                    }}
+                    {...register("description", {
+                      required: "Este campo es requerido",
+                    })}
+                    error={!!errors.description}
+                    helperText={errors.description?.message}
+                  />
+
+                  <TextField
+                    label="Inventario"
+                    type="number"
+                    variant="outlined"
+                    size="small"
+                    sx={{
+                      width: { xs: "100%", md: "48%" },
+                      ".MuiOutlinedInput-root": {
+                        borderRadius: 0,
+                      },
+                    }}
+                    {...register("inStock", {
+                      required: "Este campo es requerido",
+                      minLength: {
+                        value: 0,
+                        message: "El valor mínimo debe ser 0",
+                      },
+                    })}
+                    error={!!errors.inStock}
+                    helperText={errors.inStock?.message}
+                  />
+
+                  <TextField
+                    label="Precio"
+                    type="number"
+                    variant="outlined"
+                    size="small"
+                    sx={{
+                      width: { xs: "100%", md: "48%" },
+                      ".MuiOutlinedInput-root": {
+                        borderRadius: 0,
+                      },
+                    }}
+                    {...register("price", {
+                      required: "Este campo es requerido",
+                      minLength: {
+                        value: 0,
+                        message: "El valor mínimo debe ser 0",
+                      },
+                    })}
+                    error={!!errors.price}
+                    helperText={errors.price?.message}
+                  />
+
+                  <FormControl
+                    sx={{
+                      width: { xs: "100%", md: "48%" },
+                      ".MuiOutlinedInput-root": {
+                        borderRadius: 0,
+                      },
+                    }}
+                  >
+                    <FormLabel>Tipo</FormLabel>
+                    <RadioGroup
+                      row
+                      value={getValues("type")}
+                      onChange={({ target }) =>
+                        setValue("type", target.value, { shouldValidate: true })
+                      }
+                    >
+                      {validTypes.map((option) => (
+                        <FormControlLabel
+                          key={option}
+                          value={option}
+                          control={<Radio color="primary" />}
+                          label={capitalize(option)}
+                        />
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
+
+                  <FormControl
+                    sx={{
+                      width: { xs: "100%", md: "48%" },
+                      ".MuiOutlinedInput-root": {
+                        borderRadius: 0,
+                      },
+                    }}
+                  >
+                    <FormLabel>Género</FormLabel>
+                    <RadioGroup
+                      row
+                      value={getValues("gender")}
+                      onChange={({ target }) =>
+                        setValue("gender", target.value, {
+                          shouldValidate: true,
+                        })
+                      }
+                    >
+                      {validGender.map((option) => (
+                        <FormControlLabel
+                          key={option}
+                          value={option}
+                          control={<Radio color="primary" />}
+                          label={capitalize(option)}
+                        />
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
+
+                  <FormGroup>
+                    <FormLabel>Tallas</FormLabel>
+                    {validSizes.map((size) => (
+                      <FormControlLabel
+                        key={size}
+                        control={
+                          <Checkbox
+                            checked={getValues("sizes").includes(size)}
+                          />
+                        }
+                        label={size}
+                        onChange={() => onChangeSize(size)}
+                      />
+                    ))}
+                  </FormGroup>
+
+                  <TextField
+                    label="Etiquetas"
+                    variant="outlined"
+                    size="small"
+                    sx={{
+                      width: '100%',
+                      ".MuiOutlinedInput-root": {
+                        borderRadius: 0,
+                      },
+                    }}
+                    helperText="Presiona [spacio] para agregar"
+                    value={newTagValue}
+                    onChange={({ target }) => setNewTagValue(target.value)}
+                    onKeyUp={({ code }) =>
+                      code === "Space" ? onNewTag() : undefined
+                    }
+                  />
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      listStyle: "none",
+                      p: 0,
+                      m: 0,
+                    }}
+                    component="ul"
+                  >
+                    {getValues("tags").map((tag) => {
+                      return (
+                        <Chip
+                          key={tag}
+                          label={tag}
+                          onDelete={() => onDeleteTag(tag)}
+                          color="primary"
+                          size="small"
+                          sx={{ ml: 1, mt: 1 }}
+                        />
+                      );
+                    })}
+                  </Box>
+                </Grid>
+              </Grid>
             </Grid>
 
             {/* Tags e imagenes */}
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="Slug - URL"
-                variant="filled"
-                fullWidth
-                sx={{ mb: 1 }}
-                {...register("slug", {
-                  required: "Este campo es requerido",
-                  validate: (val) =>
-                    val.trim().includes(" ")
-                      ? "No se pueden tener espaciós en blanco"
-                      : undefined,
-                })}
-                error={!!errors.slug}
-                helperText={errors.slug?.message}
-              />
+            <Grid item xs={12} md={6} container>
+              <Grid item container>
+                <Grid item container gap={3}>
 
-              <TextField
-                label="Etiquetas"
-                variant="filled"
-                fullWidth
-                sx={{ mb: 1 }}
-                helperText="Presiona [spacio] para agregar"
-                value={newTagValue}
-                onChange={({ target }) => setNewTagValue(target.value)}
-                onKeyUp={({ code }) =>
-                  code === "Space" ? onNewTag() : undefined
-                }
-              />
-
-              <Box
-                sx={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  listStyle: "none",
-                  p: 0,
-                  m: 0,
-                }}
-                component="ul"
-              >
-                {getValues("tags").map((tag) => {
-                  return (
-                    <Chip
-                      key={tag}
-                      label={tag}
-                      onDelete={() => onDeleteTag(tag)}
-                      color="primary"
-                      size="small"
-                      sx={{ ml: 1, mt: 1 }}
+                  <Box display="flex" flexDirection="column">
+                    <FormLabel
+                      sx={{
+                        mb: 1,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        width: '100%',
+                        ".MuiOutlinedInput-root": {
+                          borderRadius: 0,
+                        },
+                      }}
+                    >
+                      Imágenes
+                      <Button
+                        color="secondary"
+                        variant="contained"
+                        size="large"
+                        startIcon={<UploadOutlined />}
+                        sx={{ mb: 3 }}
+                        onClick={() => fileInputRef.current?.click()}
+                      >
+                        Cargar imagen
+                      </Button>
+                    </FormLabel>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      multiple
+                      accept="image/png, image/gif, image/jpeg"
+                      style={{ display: "none" }}
+                      onChange={onFilesSelected}
                     />
-                  );
-                })}
-              </Box>
 
-              <Divider sx={{ my: 2 }} />
+                    <Chip
+                      label="Es necesario al 2 imagenes"
+                      color="error"
+                      variant="outlined"
+                      size="small"
+                      sx={{
+                        display:
+                          getValues("images").length >= 2 ? "none" : "block",
+                      }}
+                    />
 
-              <Box display="flex" flexDirection="column">
-                <FormLabel sx={{ mb: 1 }}>Imágenes</FormLabel>
-                <Button
-                  color="secondary"
-                  variant="outlined"
-                  fullWidth
-                  startIcon={<UploadOutlined />}
-                  sx={{ mb: 3 }}
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  Cargar imagen
-                </Button>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  multiple
-                  accept="image/png, image/gif, image/jpeg"
-                  style={{ display: "none" }}
-                  onChange={onFilesSelected}
-                />
-
-                <Chip
-                  label="Es necesario al 2 imagenes"
-                  color="error"
-                  variant="outlined"
-                  sx={{
-                    display: getValues("images").length >= 2 ? "none" : "block",
-                  }}
-                />
-
-                <Grid container spacing={2}>
-                  {getValues("images").map((img) => (
-                    <Grid item xs={4} sm={3} key={img}>
-                      <Card>
-                        <CardMedia
-                          component="img"
-                          className="fadeIn"
-                          image={img}
-                          alt={img}
-                        />
-                        <CardActions>
-                          <Button
-                            fullWidth
-                            color="error"
-                            onClick={() => onDeleteImage(img)}
-                            startIcon={<DeleteOutlineOutlined />}
-                          >
-                            Borrar
-                          </Button>
-                        </CardActions>
-                      </Card>
+                    <Grid container spacing={2}>
+                      {getValues("images").map((img) => (
+                        <Grid item xs={4} sm={3} key={img}>
+                          <Card>
+                            <CardMedia
+                              component="img"
+                              className="fadeIn"
+                              image={img}
+                              alt={img}
+                            />
+                            <CardActions>
+                              <Button
+                                color="error"
+                                onClick={() => onDeleteImage(img)}
+                                startIcon={<DeleteOutlineOutlined />}
+                              >
+                                Borrar
+                              </Button>
+                            </CardActions>
+                          </Card>
+                        </Grid>
+                      ))}
                     </Grid>
-                  ))}
+                  </Box>
                 </Grid>
-              </Box>
+              </Grid>
             </Grid>
           </Grid>
         </form>
       </AdminLayout>
-      <Backdrop open={isBackdrop} sx={{zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-        <CircularProgress color="primary"/>
+      <Backdrop
+        open={isBackdrop}
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
+        <CircularProgress color="primary" />
       </Backdrop>
-      <Snackbar anchorOrigin={{horizontal: "center", vertical: "top"}} open={isSnackbar} onClose={() => setIsSnackbar(false)} autoHideDuration={6000}>
+      <Snackbar
+        anchorOrigin={{ horizontal: "center", vertical: "top" }}
+        open={isSnackbar}
+        onClose={() => setIsSnackbar(false)}
+        autoHideDuration={6000}
+      >
         <Alert severity="success">Producto modificado correctamente!</Alert>
       </Snackbar>
     </>

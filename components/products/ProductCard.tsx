@@ -33,13 +33,13 @@ export const ProductCard = ({ product }: Props) => {
   return (
     <Grid
       item
-      xs={6}
+      xs={12}
       sm={3}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <Card>
-        <CardActionArea sx={{height: '100%'}}>
+        <CardActionArea sx={{height: '100%', cursor: {xs: 'pointer', md: 'default'}}}>
           {product.inStock === 0 && (
             <Chip
               color="info"
@@ -71,12 +71,13 @@ export const ProductCard = ({ product }: Props) => {
             height: 30,
             position: "absolute",
             top: 10,
-            right: -36,
+            right: {xs: 10, md: -36},
             transition: "all .3s ease-in-out",
             background: "#ffffff",
-            color: "#000000",
+            color: "#232323",
+            boxShadow: '0 1px 10px 1px rgba(0,0,0,0.1)' ,
             "&:hover": {
-              background: "#000000",
+              background: "#232323",
               color: "#ffffff"
             },
           }}
@@ -86,7 +87,7 @@ export const ProductCard = ({ product }: Props) => {
         <Box
           sx={{
             position: "absolute",
-            bottom: -40,
+            bottom: { xs: 0, md: -40},
             width: "100%",
             transition: "all .3s ease-in-out",
           }}

@@ -12,17 +12,14 @@ import {
   InputAdornment,
 } from "@mui/material";
 import NextLink from "next/link";
-import {
-  ClearOutlined,
-} from "@mui/icons-material";
+import { ClearOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { CartContext, UiContext } from "@/context";
 import Image from "next/image";
-import Searchicon from '../../public/icons/search.svg';
-import ShoppingCartIcon from '../../public/icons/shopping-cart.svg';
-import MenuIcon from '../../public/icons/menu.svg';
-
+import Searchicon from "../../public/icons/search.svg";
+import ShoppingCartIcon from "../../public/icons/shopping-cart.svg";
+import MenuIcon from "../../public/icons/menu.svg";
 
 export const Navbar = () => {
   const { openSideMenu } = useContext(UiContext);
@@ -45,42 +42,59 @@ export const Navbar = () => {
   };
 
   return (
-    <AppBar>
+    <AppBar sx={{width: '100%', height: '70px'}}>
       <Toolbar
-        style={{
+        sx={{
           margin: "0 auto",
           maxWidth: "1400px",
           width: "100%",
-          padding: 0,
-          borderBottom: "1px solid #D9D9D9",
+          height: "100%",
+          padding: { xs: "0 20px", md: 0 },
           backgroundColor: "#fff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
         <NextLink href={"/"} passHref legacyBehavior>
           <Link display={"flex"} alignItems={"center"}>
-            <Typography variant="h1">Expression</Typography>
+            <Typography variant="h1" sx={{ fontSize: { xs: 20, md: 30 }, textTransform: 'uppercase' }}>
+              Expre<span style={{fontWeight: 500}} >ssion</span>
+            </Typography>
           </Link>
         </NextLink>
-        <Box flex={1} />
+        <Box flex={1} sx={{ display: { xs: "none", md: "block" } }} />
         {!isSearchVisible && (
-          <Box sx={{ display: { xs: "none", sm: "block" } }} className="fadeIn">
+          <Box sx={{ display: { xs: "none", md: "block" } }} className="fadeIn">
             <NextLink href={"/category/men"} passHref legacyBehavior>
               <Link>
-                <Button className={`menu-item ${route === "/category/men" ? "active" : ""}`}>
+                <Button
+                  className={`menu-item ${
+                    route === "/category/men" ? "active" : ""
+                  }`}
+                >
                   Men
                 </Button>
               </Link>
             </NextLink>
             <NextLink href={"/category/women"} passHref legacyBehavior>
               <Link>
-                <Button className={`menu-item ${route === "/category/women" ? "active" : ""}`}>
+                <Button
+                  className={`menu-item ${
+                    route === "/category/women" ? "active" : ""
+                  }`}
+                >
                   Women
                 </Button>
               </Link>
             </NextLink>
             <NextLink href={"/category/kids"} passHref legacyBehavior>
               <Link>
-                <Button className={`menu-item ${route === "/category/kids" ? "active" : ""}`}>
+                <Button
+                  className={`menu-item ${
+                    route === "/category/kids" ? "active" : ""
+                  }`}
+                >
                   Kids
                 </Button>
               </Link>
@@ -88,60 +102,63 @@ export const Navbar = () => {
           </Box>
         )}
 
-        <Box flex={1} />
-        {/* Pantallas grandes */}
-        {!isSearchVisible && (
+        <Box flex={1} sx={{ display: { xs: "none", md: "block" } }} />
+        <Box display={'flex'} alignItems={'center'}>
+          {/* Pantallas grandes */}
+          {!isSearchVisible && (
+            <IconButton
+              onClick={() => setIsSearchVisible(true)}
+              className="fadeIn"
+              sx={{ display: { xs: "none", md: "flex" } }}
+            >
+              <Image src={Searchicon} alt="Search Icon" />
+            </IconButton>
+          )}
+          {isSearchVisible && (
+            <Input
+              type="text"
+              autoFocus
+              value={searchProduct}
+              onChange={(e) => setSearchProduct(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="fadeIn"
+              sx={{ display: { xs: "none", md: "flex" } }}
+              placeholder="Buscar..."
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setIsSearchVisible(false)}
+                  >
+                    <ClearOutlined />
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          )}
+          {/* Pantallas pequeñas */}
           <IconButton
-            onClick={() => setIsSearchVisible(true)}
-            className="fadeIn"
+            sx={{ display: { xs: "flex", sm: "none" } }}
+            onClick={openSideMenu}
           >
             <Image src={Searchicon} alt="Search Icon" />
           </IconButton>
-        )}
-        {isSearchVisible && (
-          <Input
-            type="text"
-            autoFocus
-            value={searchProduct}
-            onChange={(e) => setSearchProduct(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className="fadeIn"
-            sx={{ display: { xs: "none", sm: "flex" } }}
-            placeholder="Buscar..."
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={() => setIsSearchVisible(false)}
+          <NextLink href={"/cart"} passHref legacyBehavior>
+            <Link>
+              <IconButton>
+                <Badge
+                  badgeContent={numberOfItems > 9 ? "+9" : numberOfItems}
+                  color={"secondary"}
                 >
-                  <ClearOutlined />
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        )}
-        {/* Pantallas pequeñas */}
-        <IconButton
-          sx={{ display: { xs: "flex", sm: "none" } }}
-          onClick={openSideMenu}
-        >
-          <Image src={Searchicon} alt="Search Icon" />
-        </IconButton>
-        <NextLink href={"/cart"} passHref legacyBehavior>
-          <Link>
-            <IconButton>
-              <Badge
-                badgeContent={numberOfItems > 9 ? "+9" : numberOfItems}
-                color={"primary"}
-              >
-                <Image src={ShoppingCartIcon} alt="Shopping Cart Icon" />
-              </Badge>
-            </IconButton>
-          </Link>
-        </NextLink>
-        <IconButton onClick={openSideMenu}>
-          <Image src={MenuIcon} alt="Menu Icon" />
-        </IconButton>
+                  <Image src={ShoppingCartIcon} alt="Shopping Cart Icon" />
+                </Badge>
+              </IconButton>
+            </Link>
+          </NextLink>
+          <IconButton onClick={openSideMenu}>
+            <Image src={MenuIcon} alt="Menu Icon" />
+          </IconButton>
+        </Box>
       </Toolbar>
     </AppBar>
   );

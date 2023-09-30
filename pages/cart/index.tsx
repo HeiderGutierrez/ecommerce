@@ -23,16 +23,7 @@ const CartPage = () => {
   }, [isLoaded, cart, router]);
 
   return (
-    <ShopLayout title="Carrito" pageDescription="Carrito de compras">
-      <Typography
-        variant="h1"
-        component={"h1"}
-        fontSize={20}
-        textTransform={"uppercase"}
-        mb={2}
-      >
-        Cart
-      </Typography>
+    <ShopLayout title="Cart" pageDescription="Carrito de compras">
       <Grid container spacing={4}>
         <Grid item xs={12} sm={7}>
           <CartList editable={true} />
@@ -40,7 +31,8 @@ const CartPage = () => {
         <Grid item xs={12} sm={5}>
           <Card sx={{
             background: '#F7F7F7',
-            padding: '50px',
+            padding: {xs: '10px', md: '50px'},
+            height: 'auto'
           }}>
             <CardContent>
               <Typography variant="h2">Cart totals</Typography>

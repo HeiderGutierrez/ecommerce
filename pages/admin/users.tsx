@@ -2,42 +2,41 @@ import { tesloApi } from "@/api";
 import { AdminLayout } from "@/components/layouts";
 import { IUser } from "@/interfaces";
 import { PeopleOutline } from "@mui/icons-material";
-import { Grid, MenuItem, Select } from "@mui/material";
+import { FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import React, { useState } from "react";
 import useSWR from "swr";
-import { User } from '@/models';
-import { useEffect } from 'react';
+import { User } from "@/models";
+import { useEffect } from "react";
 
 const UsersPage = () => {
   const { data, error } = useSWR<IUser[]>("/api/admin/users");
   const [users, setUsers] = useState<IUser[]>([]);
 
   useEffect(() => {
-    if(data){
-        setUsers(data);
+    if (data) {
+      setUsers(data);
     }
-  }, [data])
+  }, [data]);
 
   if (!data && !error) return <></>;
 
   const onRolUpdated = async (userId: string, newRol: string) => {
-
-    const previousUsers = users.map((user) => ({...user}));
+    const previousUsers = users.map((user) => ({ ...user }));
     const updatedUsers = users.map((user) => ({
-        ...user,
-        role: userId === user._id ? newRol : user.role
-    }))
+      ...user,
+      role: userId === user._id ? newRol : user.role,
+    }));
 
     setUsers(updatedUsers);
 
     try {
-        await tesloApi.put('/admin/users', {userId, role: newRol})
+      await tesloApi.put("/admin/users", { userId, role: newRol });
     } catch (error) {
-        setUsers(previousUsers);
-        console.log(error);
+      setUsers(previousUsers);
+      console.log(error);
     }
-  }
+  };
 
   const columns: GridColDef[] = [
     { field: "email", headerName: "Correo", width: 250 },
@@ -48,12 +47,20 @@ const UsersPage = () => {
       width: 300,
       renderCell: (params) => {
         return (
-          <Select value={params.row.role} label="Rol" sx={{ width: "300px" }} onChange={({target}) => onRolUpdated(params.row.id, target.value)}>
-            <MenuItem value="admin">Admin</MenuItem>
-            <MenuItem value="client">Client</MenuItem>
-            <MenuItem value="super-user">Super-user</MenuItem>
-            <MenuItem value="SEO">SEO</MenuItem>
-          </Select>
+          <FormControl size="small" fullWidth>
+            <InputLabel>Rol</InputLabel>
+            <Select
+              value={params.row.role}
+              label="Rol"
+              sx={{ borderRadius: 0 }}
+              onChange={({ target }) => onRolUpdated(params.row.id, target.value)}
+            >
+              <MenuItem value="admin">Admin</MenuItem>
+              <MenuItem value="client">Client</MenuItem>
+              <MenuItem value="super-user">Super-user</MenuItem>
+              <MenuItem value="SEO">SEO</MenuItem>
+            </Select>
+          </FormControl>
         );
       },
     },
@@ -68,13 +75,37 @@ const UsersPage = () => {
 
   return (
     <AdminLayout
-      title={"Usuarios"}
+      title={"Admin | Users"}
       subTitle={"Mantenimiento de usuarios"}
       icon={<PeopleOutline />}
     >
       <Grid container>
         <Grid item xs={12}>
-          <DataGrid rows={rows} columns={columns} />
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            disableColumnFilter
+            disableColumnMenu
+            rowSelection={false}
+            rowHeight={150}
+            sx={{
+              border: "none",
+              ".MuiDataGrid-columnHeaderTitle": {
+                fontFamily: "Poppins, sans-serif",
+                color: "#232323",
+                fontSize: 13,
+              },
+              ".MuiDataGrid-columnSeparator--sideRight": {
+                display: "none",
+              },
+              ".MuiDataGrid-cell, .MuiDataGrid-columnHeader": {
+                ":focus": {
+                  outline: "none",
+                },
+              },
+            }}
+            hideFooter
+          />
         </Grid>
       </Grid>
     </AdminLayout>

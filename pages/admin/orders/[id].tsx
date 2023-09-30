@@ -37,7 +37,7 @@ interface Props {
 const OrderPageById = ({ order }: Props) => {
   return (
     <AdminLayout
-      title="Resumen de la orden"
+      title="Order Summary"
       subTitle={`Orden # ${order._id}`}
     >
       {order.isPaid ? (

@@ -2,6 +2,7 @@ import React from "react";
 import { SideMenu } from "../ui";
 import { AdminNavbar } from "../admin";
 import { Box, Typography } from "@mui/material";
+import { Footer } from "../ui/Footer";
 
 interface Props {
   children: React.ReactNode;
@@ -22,22 +23,27 @@ export const AdminLayout = ({
       <AdminNavbar />
       {/* sidebar */}
       <SideMenu />
+      <Box sx={{ background: "#232323", padding: "20px", my: "70px" }}>
+        <Box
+          sx={{
+            margin: "0 auto",
+            maxWidth: "1400px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: { xs: "center", md: "space-between" },
+          }}
+        >
+          <Typography variant="h2" sx={{ color: "#FFFFFF" }} fontSize={16}>
+            {title}
+          </Typography>
+        </Box>
+      </Box>
       {/* main */}
-      <main
-        style={{ margin: "80px auto", maxWidth: "1400px", padding: "0px 30px" }}
-      >
-        <Box display={'flex'} flexDirection={'column'}>
-            <Typography variant="h1" component={'h1'} fontFamily={'Evo'} mb={2}>
-                {icon} {title}
-            </Typography>
-            <Typography variant="h2" mb={1}>
-                {subTitle}
-            </Typography>
-        </Box>
-        <Box className="fadeIn">
-            {children}
-        </Box>
+      <main>
+        {children}
       </main>
+      {/* footer */}
+      <Footer />
     </>
   );
 };

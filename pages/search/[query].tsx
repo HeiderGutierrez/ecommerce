@@ -15,18 +15,17 @@ export default function SearchPage({ products, foundProducts, query }: Props) {
   // const { products, isError, isLoading } = useProducts("/products");
   return (
     <ShopLayout
-      title={"Expression | Inicio"}
+      title={"Search"}
       pageDescription={"Encuentra los mejores productos de Teslo"}
     >
-      <Box my={3}>
-        <Typography variant={"h1"} fontSize={20}>Search</Typography>
+      <Box mb={2}>
         {foundProducts ? (
-          <Typography variant={"h2"} sx={{ mb: 1 }} fontSize={14}>
-            Search results for <strong>{query}</strong>
+          <Typography variant={"body1"}>
+            Showing {products.length} products for {query}
           </Typography>
         ) : (
           <>
-            <Typography variant={"h2"} sx={{ mb: 1 }} fontSize={14}>
+            <Typography variant={"body1"}>
             No search results found for <strong>{query}</strong>
             </Typography>
           </>

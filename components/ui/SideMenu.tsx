@@ -11,22 +11,18 @@ import {
   ListItemText,
   ListSubheader,
 } from "@mui/material";
-import {
-  AccountCircleOutlined,
-  AdminPanelSettings,
-  CategoryOutlined,
-  ConfirmationNumberOutlined,
-  DashboardOutlined,
-  EscalatorWarningOutlined,
-  FemaleOutlined,
-  LoginOutlined,
-  MaleOutlined,
-  SearchOutlined,
-  VpnKeyOutlined,
-} from "@mui/icons-material";
 import { useContext, useState } from "react";
 import { AuthContext, UiContext } from "@/context";
 import { useRouter } from "next/router";
+import Search from '../../public/icons/search.svg';
+import User from '../../public/icons/user.svg';
+import Ticket from '../../public/icons/ticket.svg';
+import LogOut from '../../public/icons/log-out.svg';
+import LogIn from '../../public/icons/log-in.svg';
+import LayoutDashboard from '../../public/icons/layout-dashboard.svg';
+import Users from '../../public/icons/users.svg';
+import Shirt from '../../public/icons/shirt.svg';
+import Image from 'next/image';
 
 export const SideMenu = () => {
   const { isLoggedIn, user, logout } = useContext(AuthContext);
@@ -64,7 +60,7 @@ export const SideMenu = () => {
                     aria-label="toggle password visibility"
                     onClick={onSearchProduct}
                   >
-                    <SearchOutlined />
+                    <Image src={Search} alt="" />
                   </IconButton>
                 </InputAdornment>
               }
@@ -74,14 +70,14 @@ export const SideMenu = () => {
             <>
               <ListItem button>
                 <ListItemIcon>
-                  <AccountCircleOutlined />
+                  <Image src={User} alt="" />
                 </ListItemIcon>
                 <ListItemText primary={"Perfil"} />
               </ListItem>
 
               <ListItem button onClick={() => navigateTo('/orders/history')}>
                 <ListItemIcon>
-                  <ConfirmationNumberOutlined />
+                  <Image src={Ticket} alt="" />
                 </ListItemIcon>
                 <ListItemText primary={"Mis Ordenes"} />
               </ListItem>
@@ -94,7 +90,7 @@ export const SideMenu = () => {
             onClick={() => navigateTo("/category/men")}
           >
             <ListItemIcon>
-              <MaleOutlined />
+              <Image src={Ticket} alt="" />
             </ListItemIcon>
             <ListItemText primary={"Hombres"} />
           </ListItem>
@@ -105,7 +101,7 @@ export const SideMenu = () => {
             onClick={() => navigateTo("/category/women")}
           >
             <ListItemIcon>
-              <FemaleOutlined />
+              <Image src={Ticket} alt="" />
             </ListItemIcon>
             <ListItemText primary={"Mujeres"} />
           </ListItem>
@@ -116,21 +112,21 @@ export const SideMenu = () => {
             onClick={() => navigateTo("/category/kids")}
           >
             <ListItemIcon>
-              <EscalatorWarningOutlined />
+              <Image src={Ticket} alt="" />
             </ListItemIcon>
             <ListItemText primary={"Niños"} />
           </ListItem>
           {!isLoggedIn ? (
             <ListItem button onClick={() => navigateTo(`/auth/login?p=${router.asPath}`)}>
               <ListItemIcon>
-                <VpnKeyOutlined />
+                <Image src={LogIn} alt="" />
               </ListItemIcon>
               <ListItemText primary={"Ingresar"} />
             </ListItem>
           ) : (
             <ListItem button onClick={() => logout()}>
               <ListItemIcon>
-                <LoginOutlined />
+                <Image src={LogOut} alt="" />
               </ListItemIcon>
               <ListItemText primary={"Salir"} />
             </ListItem>
@@ -144,26 +140,26 @@ export const SideMenu = () => {
 
               <ListItem button onClick={() => navigateTo(`/admin/`)}>
                 <ListItemIcon>
-                  <DashboardOutlined />
+                  <Image src={LayoutDashboard} alt="" />
                 </ListItemIcon>
                 <ListItemText primary={"Dashboard"} />
               </ListItem>
               <ListItem button onClick={() => navigateTo(`/admin/products`)}>
                 <ListItemIcon>
-                  <CategoryOutlined />
+                  <Image src={Shirt} alt="" />
                 </ListItemIcon>
                 <ListItemText primary={"Productos"} />
               </ListItem>
               <ListItem button onClick={() => navigateTo(`/admin/orders`)}>
                 <ListItemIcon>
-                  <ConfirmationNumberOutlined />
+                  <Image src={Ticket} alt="" />
                 </ListItemIcon>
                 <ListItemText primary={"Ordenes"} />
               </ListItem>
 
               <ListItem button onClick={() => navigateTo(`/admin/users`)}>
                 <ListItemIcon>
-                  <AdminPanelSettings />
+                  <Image src={Users} alt="" />
                 </ListItemIcon>
                 <ListItemText primary={"Usuarios"} />
               </ListItem>

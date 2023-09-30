@@ -15,7 +15,7 @@ export const lightTheme = createTheme({
       main: '#2E8B57'
     },
     secondary: {
-      main: '#000000 '
+      main: '#232323 '
     },
     info: {
       main: "#0099FF"
@@ -33,7 +33,7 @@ export const lightTheme = createTheme({
       main: "#FFCC00"
     },
     text: {
-      primary: "#000000"
+      primary: "#232323"
     },
   },
   components: {
@@ -123,6 +123,13 @@ export const lightTheme = createTheme({
       }
     },
     MuiTextField: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+        }
+      }
+    },
+    MuiPaper: {
       styleOverrides: {
         root: {
           borderRadius: 0,

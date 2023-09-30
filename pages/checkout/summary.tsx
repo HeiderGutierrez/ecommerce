@@ -56,7 +56,7 @@ const SummaryPage = () => {
           <Card
             sx={{
               background: "#F7F7F7",
-              padding: "50px",
+              padding: {xs: '10px', md: "50px"},
               height: 'auto'
             }}
           >
@@ -116,7 +116,7 @@ const SummaryPage = () => {
                 <Chip
                   color="error"
                   label={errorMessage}
-                  sx={{ display: errorMessage ? "flex" : "none", mt: 2 }}
+                  sx={{ display: errorMessage ? "flex" : "none", mt: 2, borderRadius: 0 }}
                 />
               </Box>
             </CardContent>

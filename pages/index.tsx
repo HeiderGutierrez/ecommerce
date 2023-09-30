@@ -40,8 +40,8 @@ export default function HomePage() {
         alignItems={"center"}
         mb={2}
       >
-        <Typography variant={"h2"} sx={{ mb: 5, mt: 5, color: "#5E5E5E" }}>
-          {products.length} Productos
+        <Typography variant={"body1"}>
+          Showing {products.length} Products
         </Typography>
         <Box sx={{ width: 200 }}>
           <FormControl fullWidth size="small">

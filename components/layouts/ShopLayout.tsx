@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head";
 import { Navbar, SideMenu } from "../ui";
 import { Footer } from "../ui/Footer";
+import { Box, Typography } from "@mui/material";
 
 interface Props {
   children: React.ReactNode;
@@ -30,9 +31,22 @@ export const ShopLayout = ({
       {/* sidebar */}
       <SideMenu />
       {/* main */}
-      <main
-        style={{ margin: "100px auto", maxWidth: "1400px", padding: "0px 30px" }}
-      >
+      <Box sx={{ background: "#232323", padding: "20px", my: "70px" }}>
+        <Box
+          sx={{
+            margin: "0 auto",
+            maxWidth: "1400px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: { xs: "center", md: "space-between" },
+          }}
+        >
+          <Typography variant="h2" sx={{ color: "#FFFFFF" }} fontSize={16}>
+            {title}
+          </Typography>
+        </Box>
+      </Box>
+      <main>
         {children}
       </main>
       {/* footer */}

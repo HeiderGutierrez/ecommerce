@@ -69,7 +69,7 @@ const Custom404 = () => {
           />
         </Box>
         <Box>
-          <Button variant="contained" color="secondary" size="large">
+          <Button href="/" variant="contained" color="secondary" size="large">
             Back to home page
           </Button>
         </Box>

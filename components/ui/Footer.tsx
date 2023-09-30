@@ -2,8 +2,6 @@ import {
   Box,
   Button,
   Divider,
-  FilledInput,
-  FormControl,
   Grid,
   ImageList,
   ImageListItem,
@@ -14,15 +12,14 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import {
-  ArrowForwardOutlined,
-  FacebookOutlined,
-  Instagram,
-  LinkedIn,
-  Pinterest,
-  Twitter,
-} from "@mui/icons-material";
 import Image from "next/image";
+import ArrowRight from '../../public/icons/arrow-right.svg';
+import Facebook from '../../public/icons/facebook.svg';
+import Github from '../../public/icons/github.svg';
+import Dribbble from '../../public/icons/dribbble.svg';
+import Instagram from '../../public/icons/instagram.svg';
+import Twitter from '../../public/icons/twitter.svg';
+import Linkedin from '../../public/icons/linkedin.svg';
 
 const itemData = [
   {
@@ -73,11 +70,20 @@ export const Footer = () => {
           display={"flex"}
           alignItems={"center"}
           justifyContent={"space-between"}
+          sx={{
+            flexDirection: { xs: "column", md: "row" },
+            padding: { xs: "20px", md: 0 },
+          }}
         >
-          <Box display={"flex"} alignItems={"center"} gap={4} py={3}>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            gap={4}
+            sx={{ py: { xs: 0, md: 3 }, width: { xs: "100%", md: "auto" } }}
+          >
             <Typography
               variant="subtitle1"
-              sx={{ color: "#B7B7B7" }}
+              sx={{ color: "#B7B7B7", display: { xs: "none", md: "block" } }}
               fontSize={14}
             >
               LAST CHANCE TO WIN OUR DISCOUNT!
@@ -89,15 +95,21 @@ export const Footer = () => {
                 color: "#B7B7B7",
                 background: "#303030",
                 borderRadius: 0,
-                height: "100%",
+                width: { xs: "100%", md: "auto" },
+                ".MuiOutlinedInput-root": {
+                  borderRadius: 0,
+                }
               }}
               InputProps={{
+                style: {
+                  color: "#B7B7B7"
+                },
                 endAdornment: (
                   <Button
                     variant="text"
                     size="small"
                     sx={{ color: "#B7B7B7" }}
-                    endIcon={<ArrowForwardOutlined />}
+                    endIcon={<Image src={ArrowRight} alt="Arrow right icon" />}
                   >
                     SUSCRIBE
                   </Button>
@@ -105,39 +117,48 @@ export const Footer = () => {
               }}
             />
           </Box>
-          <Box display={"flex"} alignItems={"center"} gap={4} py={3}>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            gap={4}
+            sx={{ py: { xs: 0, md: 3 }, mt: { xs: 2, mb: 0 } }}
+          >
             <Typography
               variant="subtitle1"
-              sx={{ color: "#B7B7B7" }}
+              sx={{ color: "#B7B7B7", display: { xs: "none", md: "block" } }}
               fontSize={14}
             >
               ON SOCIAL NETWORKS
             </Typography>
             <Box display={"flex"} alignItems={"center"} gap={1}>
-              <Link sx={{ color: "#B7B7B7" }} href="www.facebook.com">
-                <FacebookOutlined sx={{ fontSize: 18 }} />
+              <Link href="www.facebook.com">
+                <Image src={Facebook} alt="Facebook icon" />
               </Link>
-              <Link sx={{ color: "#B7B7B7" }} href="www.twitter.com">
-                <Twitter sx={{ fontSize: 18 }} />
+              <Link href="www.twitter.com">
+                <Image src={Twitter} alt="Twitter icon" />
               </Link>
-              <Link sx={{ color: "#B7B7B7" }} href="www.linkedin.com">
-                <LinkedIn sx={{ fontSize: 18 }} />
+              <Link href="www.linkedin.com">
+                <Image src={Linkedin} alt="Linkedin icon" />
               </Link>
-              <Link sx={{ color: "#B7B7B7" }} href="www.instagram.com">
-                <Instagram sx={{ fontSize: 18 }} />
+              <Link href="www.instagram.com">
+                <Image src={Instagram} alt="Instagram icon" />
               </Link>
-              <Link sx={{ color: "#B7B7B7" }} href="www.pinterest.com">
-                <Pinterest sx={{ fontSize: 18 }} />
+              <Link href="www.dribbble.com">
+                <Image src={Dribbble} alt="Dribbble icon" />
               </Link>
             </Box>
           </Box>
         </Box>
-        <Divider sx={{ background: "#9f9f9f1a" }} />
-        <Box py={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={4}>
-              <Typography variant="h2" sx={{ color: "#B7B7B7" }} mb={1}>
-                Expression
+        <Divider sx={{ background: "#9f9f9f1a", width: "100%" }} />
+        <Box py={3} sx={{ padding: { xs: "20px", md: '20px 0' } }}>
+          <Grid
+            container
+            spacing={3}
+            sx={{ textAlign: { xs: "center", md: "left" } }}
+          >
+            <Grid item xs={12} md={4}>
+              <Typography variant="h2" sx={{ color: "#B7B7B7" }} fontWeight={600} textTransform={'uppercase'} mb={1}>
+                Expre<span style={{fontWeight: 500}}>ssion</span>
               </Typography>
               <Typography variant="body1">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -145,7 +166,7 @@ export const Footer = () => {
                 ipsum is simply dummy typesetting text.
               </Typography>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={12} md={2}>
               <Typography
                 variant="h2"
                 textTransform={"uppercase"}
@@ -155,24 +176,39 @@ export const Footer = () => {
                 CATEGORIES
               </Typography>
               <List dense>
-                <ListItem sx={{ px: 0 }}>
+                <ListItem
+                  sx={{
+                    px: 0,
+                    justifyContent: { xs: "center", md: "flex-start" },
+                  }}
+                >
                   <Link href="/category/men">
                     <Typography variant="body1">Men</Typography>
                   </Link>
                 </ListItem>
-                <ListItem sx={{ px: 0 }}>
+                <ListItem
+                  sx={{
+                    px: 0,
+                    justifyContent: { xs: "center", md: "flex-start" },
+                  }}
+                >
                   <Link href="/category/women">
                     <Typography variant="body1">Women</Typography>
                   </Link>
                 </ListItem>
-                <ListItem sx={{ px: 0 }}>
+                <ListItem
+                  sx={{
+                    px: 0,
+                    justifyContent: { xs: "center", md: "flex-start" },
+                  }}
+                >
                   <Link href="/category/kids">
                     <Typography variant="body1">Kids</Typography>
                   </Link>
                 </ListItem>
               </List>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={12} md={2}>
               <Typography
                 variant="h2"
                 textTransform={"uppercase"}
@@ -182,38 +218,63 @@ export const Footer = () => {
                 CUSTOMER
               </Typography>
               <List dense>
-                <ListItem sx={{ px: 0 }}>
+                <ListItem
+                  sx={{
+                    px: 0,
+                    justifyContent: { xs: "center", md: "flex-start" },
+                  }}
+                >
                   <Link href="/category/men">
                     <Typography variant="body1">Help and support</Typography>
                   </Link>
                 </ListItem>
-                <ListItem sx={{ px: 0 }}>
+                <ListItem
+                  sx={{
+                    px: 0,
+                    justifyContent: { xs: "center", md: "flex-start" },
+                  }}
+                >
                   <Link href="/category/women">
                     <Typography variant="body1">
                       Shipping and delivery
                     </Typography>
                   </Link>
                 </ListItem>
-                <ListItem sx={{ px: 0 }}>
+                <ListItem
+                  sx={{
+                    px: 0,
+                    justifyContent: { xs: "center", md: "flex-start" },
+                  }}
+                >
                   <Link href="/category/kids">
                     <Typography variant="body1">Payment method</Typography>
                   </Link>
                 </ListItem>
-                <ListItem sx={{ px: 0 }}>
+                <ListItem
+                  sx={{
+                    px: 0,
+                    justifyContent: { xs: "center", md: "flex-start" },
+                  }}
+                >
                   <Link href="/category/kids">
                     <Typography variant="body1">
                       Terms and conditions
                     </Typography>
                   </Link>
                 </ListItem>
-                <ListItem sx={{ px: 0 }}>
+                <ListItem
+                  sx={{
+                    px: 0,
+                    justifyContent: { xs: "center", md: "flex-start" },
+                  }}
+                >
                   <Link href="/category/kids">
                     <Typography variant="body1">Privacy policy</Typography>
                   </Link>
                 </ListItem>
               </List>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={12} md={2}>
               <Typography
                 variant="h2"
                 textTransform={"uppercase"}
@@ -223,50 +284,79 @@ export const Footer = () => {
                 COMPANY
               </Typography>
               <List dense>
-                <ListItem sx={{ px: 0 }}>
+                <ListItem
+                  sx={{
+                    px: 0,
+                    justifyContent: { xs: "center", md: "flex-start" },
+                  }}
+                >
                   <Link href="/category/men">
                     <Typography variant="body1">About company</Typography>
                   </Link>
                 </ListItem>
-                <ListItem sx={{ px: 0 }}>
+                <ListItem
+                  sx={{
+                    px: 0,
+                    justifyContent: { xs: "center", md: "flex-start" },
+                  }}
+                >
                   <Link href="/category/women">
                     <Typography variant="body1">Our services</Typography>
                   </Link>
                 </ListItem>
-                <ListItem sx={{ px: 0 }}>
+                <ListItem
+                  sx={{
+                    px: 0,
+                    justifyContent: { xs: "center", md: "flex-start" },
+                  }}
+                >
                   <Link href="/category/kids">
                     <Typography variant="body1">Get the voucher</Typography>
                   </Link>
                 </ListItem>
-                <ListItem sx={{ px: 0 }}>
+                <ListItem
+                  sx={{
+                    px: 0,
+                    justifyContent: { xs: "center", md: "flex-start" },
+                  }}
+                >
                   <Link href="/category/kids">
                     <Typography variant="body1">Store locator</Typography>
                   </Link>
                 </ListItem>
-                <ListItem sx={{ px: 0 }}>
+                <ListItem
+                  sx={{
+                    px: 0,
+                    justifyContent: { xs: "center", md: "flex-start" },
+                  }}
+                >
                   <Link href="/category/kids">
                     <Typography variant="body1">Contact us</Typography>
                   </Link>
                 </ListItem>
               </List>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={12} md={2} sx={{display: {xs: 'none', md: 'block'}}}>
               <Typography
                 variant="h2"
                 textTransform={"uppercase"}
                 fontSize={14}
-                sx={{ color: "#B7B7B7" }}
+                sx={{ color: "#B7B7B7", mb: 2 }}
               >
                 FOLLOW US ON INSTAGRAM
               </Typography>
-              <ImageList cols={4}>
+              <ImageList cols={4} rowHeight={50}>
                 {itemData.map((item) => (
                   <ImageListItem key={item.img}>
                     <Image
                       src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
                       alt={item.title}
-                      width={50}
-                      height={50}
+                      width={80}
+                      height={80}
+                      style={{
+                        maxWidth: '100%',
+                        maxHeight: '100%'
+                      }}
                     />
                   </ImageListItem>
                 ))}
@@ -274,8 +364,8 @@ export const Footer = () => {
             </Grid>
           </Grid>
         </Box>
-        <Divider sx={{ background: "#9f9f9f1a" }} />
-        <Box py={3}>
+        <Divider sx={{ background: "#9f9f9f1a", width: "100%" }} />
+        <Box sx={{ padding: { xs: "20px", md: '20px 0' }, textAlign: {xs: 'center', md: 'left'} }}>
           <Typography variant="body1">
             © 2023 Expression | Designed and coded with ❤ by Heider Gutierrez
           </Typography>

@@ -93,7 +93,7 @@ const ProductPage = ({ product }: Props) => {
             </Box>
             <Divider />
             <Box sx={{ my: 2 }}>
-              <Box display={"flex"} alignItems={"center"} gap={4}>
+              <Box display={"flex"} alignItems={"baseline"} gap={4}>
                 <Typography
                   variant={"h2"}
                   fontSize={14}

@@ -1,40 +1,56 @@
 import { ShopLayout } from "@/components/layouts";
-import { Chip, Grid, Link, Typography } from "@mui/material";
+import { Button, Chip, Grid, Link, Typography } from "@mui/material";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
-import { GetServerSideProps, NextPage } from 'next';
+import { GetServerSideProps, NextPage } from "next";
 import { getServerSession } from "next-auth";
 import NextLink from "next/link";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { dbOrders } from "@/database";
 import { IOrder } from "@/interfaces";
+import { format } from "date-fns";
+import { enUS } from "date-fns/locale";
 
 const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 150 },
-  { field: "fullName", headerName: "Nombre Completo", width: 150 },
+  { field: "id", headerName: "ID", width: 150, sortable: false},
+  { field: "fullName", headerName: "Full Name", width: 150, sortable: false },
   {
     field: "paid",
-    headerName: "Pagada",
+    headerName: "Status",
     width: 200,
+    sortable: false,
     renderCell: (params) => {
       return params.row.paid ? (
-        <Chip color="success" label="Pagada" variant="outlined" />
+        <Chip
+          color="success"
+          label="Paid"
+          variant="outlined"
+          sx={{ borderRadius: 0 }}
+        />
       ) : (
-        <Chip color="error" label="No pagada" variant="outlined" />
+        <Chip
+          color="error"
+          label="Unpaid"
+          variant="outlined"
+          sx={{ borderRadius: 0 }}
+        />
       );
     },
   },
+  { field: "date", headerName: "Creation Date", width: 300, sortable: false },
   {
     field: "order",
-    headerName: "Orden",
+    headerName: "Order",
     width: 200,
     sortable: false,
     renderCell: (params) => {
       return (
-        <NextLink href={`/orders/${params.row.orderId}`} passHref legacyBehavior>
-          <Link underline="always">
-            <Typography>Ver orden</Typography>
-          </Link>
-        </NextLink>
+        <Button
+          href={`/orders/${params.row.orderId}`}
+          variant="contained"
+          color="secondary"
+        >
+          View order
+        </Button>
       );
     },
   },
@@ -45,51 +61,81 @@ interface Props {
 }
 
 const HistoryPage = ({ orders }: Props) => {
+  const rows: GridRowsProp = orders.map((order, index) => {
+    let dateFormatted = "";
 
-  const rows: GridRowsProp = orders.map((order, index) => ({
-    id: index + 1, 
-    fullName: order.shippingAddress.firstName + ' ' + order.shippingAddress.lastName, 
-    paid: order.isPaid,
-    orderId: order._id
-  }))
+    if (order.createdAt) {
+      dateFormatted = format(new Date(order.createdAt), "EEEE, MMMM d", {
+        locale: enUS,
+      });
+    }
+
+    return {
+      id: index + 1,
+      fullName:
+        order.shippingAddress.firstName + " " + order.shippingAddress.lastName,
+      paid: order.isPaid,
+      orderId: order._id,
+      date: dateFormatted,
+    };
+  });
 
   return (
     <ShopLayout
       title="Historial de ordenes"
       pageDescription="Historial de ordenes del cliente"
     >
-      <Typography variant="h1" component={"h1"} fontFamily={'Evo'} mb={2}>
-        Historial de ordenes
-      </Typography>
       <Grid container>
         <Grid item xs={12}>
-          <DataGrid rows={rows} columns={columns} />
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            disableColumnFilter
+            disableColumnMenu
+            rowSelection={false}
+            rowHeight={150}
+            sx={{
+              border: "none",
+              ".MuiDataGrid-columnHeaderTitle": {
+                fontFamily: "Poppins, sans-serif",
+                color: "#232323",
+                fontSize: 13,
+              },
+              ".MuiDataGrid-columnSeparator--sideRight" : {
+                display: 'none',
+              },
+              ".MuiDataGrid-cell, .MuiDataGrid-columnHeader": {
+                ":focus": {
+                  outline: 'none',
+                }
+              },
+            }}
+            hideFooter
+          />
         </Grid>
       </Grid>
     </ShopLayout>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
-
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session: any = await getServerSession(req, res, authOptions);
 
-  if(!session) {
+  if (!session) {
     return {
-      redirect :{
+      redirect: {
         destination: `/auth/login?p=/orders/history`,
-        permanent  : false
-      }
-    }
+        permanent: false,
+      },
+    };
   }
 
   const orders = await dbOrders.getOrdersByUser(session.user._id);
-
   return {
-    props:{
-      orders
-    }
-  }
-}
+    props: {
+      orders,
+    },
+  };
+};
 
 export default HistoryPage;

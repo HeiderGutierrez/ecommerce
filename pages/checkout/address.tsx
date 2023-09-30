@@ -198,12 +198,13 @@ const AddressPage = () => {
             </FormControl>
           </Grid>
         </Grid>
-        <Box sx={{ mt: 5, display: "flex", justifyContent: "flex-end" }}>
+        <Box sx={{ mt: 5, display: "flex", justifyContent: "flex-end"}}>
           <Button
             type="submit"
             variant="contained"
             color="primary"
             size={"large"}
+            sx={{width: {xs: '100%', md: 'auto'}}}
           >
             Check Order
           </Button>

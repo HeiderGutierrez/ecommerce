@@ -20,6 +20,12 @@
   }
 }
 
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
 }
@@ -83,9 +89,9 @@ body {
 .image-gallery-thumbnail.active,
 .image-gallery-thumbnail:focus,
 .image-gallery-thumbnail:hover {
-  border: 3px solid #2E8B57;
-  border-radius: 4px;
+  border: none;
   overflow: hidden;
+  opacity: .5;
 }
 
 .image-gallery-icon:hover {
@@ -136,7 +142,19 @@ body {
   position: absolute;
   bottom: -100%;
   left: 0;
-  color: #202328;
+  color: #232323;
   transition: all .3s ease-in-out;
   font-size: 11px;
+}
+
+main {
+  margin: 0 auto 100px;
+  max-width: 1400px;
+  padding: 0;
+}
+
+@media (max-width: 900px) {
+  main {
+    padding: 20px;
+  }
 }

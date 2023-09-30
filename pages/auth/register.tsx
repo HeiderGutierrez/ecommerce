@@ -55,7 +55,7 @@ const RegisterPage = () => {
   return (
     <AuthLayout title="Registro">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Box sx={{ width: 350, padding: "10px 50px" }}>
+        <Box sx={{ width: 350, padding: {xs: '20px', md: '50px'} }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography variant="h1" component={"h1"}>

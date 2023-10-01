@@ -1,10 +1,8 @@
 import { ShopLayout } from "@/components/layouts";
-import { Button, Chip, Grid, Link, Typography } from "@mui/material";
+import { Button, Chip, Grid } from "@mui/material";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
-import { GetServerSideProps, NextPage } from "next";
-import { getServerSession } from "next-auth";
-import NextLink from "next/link";
-import { authOptions } from "../api/auth/[...nextauth]";
+import { GetServerSideProps } from "next";
+import { getSession } from 'next-auth/react';
 import { dbOrders } from "@/database";
 import { IOrder } from "@/interfaces";
 import { format } from "date-fns";
@@ -119,7 +117,7 @@ const HistoryPage = ({ orders }: Props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session: any = await getServerSession(req, res, authOptions);
+  const session: any = await getSession({req});
 
   if (!session) {
     return {

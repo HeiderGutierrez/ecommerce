@@ -5,8 +5,7 @@ import { validations } from "@/utils";
 import { ErrorOutline, Visibility, VisibilityOff } from "@mui/icons-material";
 import { Box, Button, Chip, FilledInput, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, Link, TextField, Typography } from "@mui/material";
 import { GetServerSideProps } from "next";
-import { getServerSession } from "next-auth";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
@@ -153,10 +152,9 @@ const RegisterPage = () => {
 
 export const getServerSideProps: GetServerSideProps = async ({
   req,
-  res,
   query,
 }) => {
-  const session = await getServerSession(req, res, authOptions);
+  const session = await getSession({req});
 
   const { p = "/" } = query;
 

@@ -11,8 +11,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { GetServerSideProps } from "next";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]";
+import { getSession } from 'next-auth/react';
 import { dbOrders } from "@/database";
 import { IOrder } from "@/interfaces";
 import { PayPalButtons } from "@paypal/react-paypal-js";
@@ -169,12 +168,11 @@ const OrderPage = ({ order }: Props) => {
 
 export const getServerSideProps: GetServerSideProps = async ({
   req,
-  res,
   query,
 }) => {
   const { id = "" } = query;
 
-  const session: any = await getServerSession(req, res, authOptions);
+  const session: any = await getSession({req});
 
   if (!session) {
     return {

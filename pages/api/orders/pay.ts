@@ -3,8 +3,7 @@ import { IPaypal } from '@/interfaces';
 import { Order } from '@/models';
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]';
+import { getSession } from 'next-auth/react';
 
 // Definimos un tipo Data que representa la forma de la respuesta de la API, que contiene un mensaje.
 type Data = { message: string };
@@ -59,7 +58,7 @@ const getPaypalBearerToken = async (): Promise<string | null> => {
 // Definimos la función 'payOrder' que procesa el pago de una orden utilizando PayPal.
 const payOrder = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     
-    const session: any = await getServerSession(req, res, authOptions);
+    const session: any = await getSession({req});
     if (!session) {
       return res.status(401).json({message: 'Debe de estar autenticado para hacer esto'});
     }

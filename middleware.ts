@@ -2,35 +2,24 @@ import { getToken } from "next-auth/jwt";
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 
 export async function middleware(req: NextRequest | any, ev: NextFetchEvent) {
-  const session: any = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const session: any = await getToken({
+    req,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
   if (!session) {
-    if(req.nextUrl.pathname.startsWith('/api/admin/')){
-      return NextResponse.redirect(new URL('/', req.url));
-    }
-    const requestedPage = req.nextUrl.pathname;
-    const url = req.nextUrl.clone();
-    url.pathname = `/auth/login`;
-    url.search = `p=${requestedPage}`;
-    return NextResponse.redirect(url);
+    const requestedPage = req.page.name;
+    return NextResponse.redirect(`/auth/login?p=${requestedPage}`);
   }
 
-  const validRoles = ['admin','super-user','SEO'];
-  
-  if(req.nextUrl.pathname.startsWith('/admin')){
-    if(!validRoles.includes(session.user.role)){
-      return NextResponse.redirect(new URL('/', req.url));
-    }
-  }
-
-  if (req.nextUrl.pathname.startsWith('/api/admin')) {
-    if (!validRoles.includes(session.user.role)) {
-      return NextResponse.redirect(new URL('/', req.url));
-    }
+  const validRoles = ["admin", "super-user", "SEO"];
+  // if ( session.user.role !== 'admin' )  {
+  if (!validRoles.includes(session.user.role)) {
+    return NextResponse.redirect(`/`);
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/checkout/:path*', '/admin/:path*', '/api/admin/:path*'],
+  matcher: ["/checkout/:path*", "/admin/:path*", "/api/admin/:path*"],
 };

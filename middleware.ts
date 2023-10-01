@@ -1,7 +1,7 @@
 import { getToken } from "next-auth/jwt";
-import { NextRequest, NextResponse } from "next/server";
+import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 
-export async function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest | any, ev: NextFetchEvent) {
   const session: any = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   if (!session) {
     if(req.nextUrl.pathname.startsWith('/api/admin/')){
@@ -14,7 +14,8 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  const validRoles = ['admin'];
+  const validRoles = ['admin','super-user','SEO'];
+  
   if(req.nextUrl.pathname.startsWith('/admin')){
     if(!validRoles.includes(session.user.role)){
       return NextResponse.redirect(new URL('/', req.url));

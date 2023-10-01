@@ -33,11 +33,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if(status === 'authenticated'){
       dispatch({type: '[Auth] - Login', payload: data?.user as IUser});
     }
-  }, [data?.user, status]);
-
-  // useEffect(() => {
-  //   checkToken();
-  // }, []);
+  }, [ status, data ]);
 
   // Definimos la función checkToken que valida el token del usuario al cargar la aplicación.
   const checkToken = async () => {
@@ -89,7 +85,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     password: string
   ): Promise<{
     hasError: boolean;
-    message: any;
+    message: string;
   }> => {
     try {
       // Realizamos una solicitud de registro de usuario al endpoint "/user/register" del API enviando el nombre, email y contraseña proporcionados.

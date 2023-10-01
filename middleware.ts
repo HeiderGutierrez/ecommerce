@@ -5,7 +5,7 @@ export async function middleware(req: NextRequest | any, ev: NextFetchEvent) {
   const session: any = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   if (!session) {
     if(req.nextUrl.pathname.startsWith('/api/admin/')){
-      return NextResponse.redirect(new URL('/api/auth/unauthorized', req.url));
+      return NextResponse.redirect(new URL('/', req.url));
     }
     const requestedPage = req.nextUrl.pathname;
     const url = req.nextUrl.clone();
@@ -24,7 +24,7 @@ export async function middleware(req: NextRequest | any, ev: NextFetchEvent) {
 
   if (req.nextUrl.pathname.startsWith('/api/admin')) {
     if (!validRoles.includes(session.user.role)) {
-      return NextResponse.redirect(new URL('/api/auth/unauthorized', req.url));
+      return NextResponse.redirect(new URL('/', req.url));
     }
   }
 

@@ -2,7 +2,7 @@
 import { useEffect, useReducer } from "react";
 import { AuthContext, authReducer } from "./";
 import { IUser } from "@/interfaces";
-import { tesloApi } from "@/api";
+import { tesloApi } from "@/axiosApi";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { useRouter } from "next/router";

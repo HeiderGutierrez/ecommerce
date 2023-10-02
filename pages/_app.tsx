@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import { lightTheme } from "@/themes";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import type { AppProps } from "next/app";
+import type { Session } from "next-auth"
 import { SWRConfig } from "swr";
 import { SessionProvider } from "next-auth/react";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
@@ -10,7 +11,7 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
-}: AppProps) {
+}: AppProps<{ session: Session }>) {
   return (
     <SessionProvider session={session} basePath="/api/auth">
       <PayPalScriptProvider

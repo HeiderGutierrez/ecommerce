@@ -20,9 +20,8 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_SECRET!,
     }),
     Credentials({
-      name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "text" },
+        email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
@@ -70,4 +69,4 @@ export const authOptions: NextAuthOptions = {
 
 const authInstance = NextAuth(authOptions);
 
-export default authInstance;
+export {authInstance as Get, authInstance as POST};

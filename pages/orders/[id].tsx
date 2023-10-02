@@ -16,7 +16,7 @@ import { authOptions } from "../api/auth/[...nextauth]";
 import { dbOrders } from "@/database";
 import { IOrder } from "@/interfaces";
 import { PayPalButtons } from "@paypal/react-paypal-js";
-import { tesloApi } from "@/axiosApi";
+import { tesloApi } from "@/xdApi";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Cookies from "js-cookie";

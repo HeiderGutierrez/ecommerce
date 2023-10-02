@@ -1,4 +1,4 @@
-import { tesloApi } from "@/axiosApi";
+import { tesloApi } from "@/xdApi";
 import { AdminLayout } from "@/components/layouts";
 import { IUser } from "@/interfaces";
 import { PeopleOutline } from "@mui/icons-material";

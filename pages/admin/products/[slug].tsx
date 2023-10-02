@@ -35,7 +35,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { tesloApi } from "@/axiosApi";
+import { tesloApi } from "@/xdApi";
 import { useRouter } from "next/router";
 import { Product } from "@/models";
 import Upload from "../../../public/icons/upload.svg";

@@ -1,4 +1,4 @@
-import { tesloApi } from "@/axiosApi";
+import { tesloApi } from "@/xdApi";
 import { AuthLayout } from "@/components/layouts";
 import { AuthContext } from "@/context";
 import { validations } from "@/utils";

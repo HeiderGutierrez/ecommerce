@@ -22,6 +22,9 @@ import LogIn from '../../public/icons/log-in.svg';
 import LayoutDashboard from '../../public/icons/layout-dashboard.svg';
 import Users from '../../public/icons/users.svg';
 import Shirt from '../../public/icons/shirt.svg';
+import Male from '../../public/icons/gender-male.svg';
+import Famale from '../../public/icons/gender-famale.svg';
+import Kids from '../../public/icons/smiley-baby.svg';
 import Image from 'next/image';
 
 export const SideMenu = () => {
@@ -53,7 +56,7 @@ export const SideMenu = () => {
               autoFocus
               value={searchProduct}
               onChange={(e) => setSearchProduct(e.target.value)}
-              placeholder="Buscar..."
+              placeholder="Search..."
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -72,14 +75,14 @@ export const SideMenu = () => {
                 <ListItemIcon>
                   <Image src={User} alt="" />
                 </ListItemIcon>
-                <ListItemText primary={"Perfil"} />
+                <ListItemText primary={"Profile"} />
               </ListItem>
 
               <ListItem button onClick={() => navigateTo('/orders/history')}>
                 <ListItemIcon>
                   <Image src={Ticket} alt="" />
                 </ListItemIcon>
-                <ListItemText primary={"Mis Ordenes"} />
+                <ListItemText primary={"My Orders"} />
               </ListItem>
             </>
           )}
@@ -90,9 +93,9 @@ export const SideMenu = () => {
             onClick={() => navigateTo("/category/men")}
           >
             <ListItemIcon>
-              <Image src={Ticket} alt="" />
+              <Image src={Male} alt="" />
             </ListItemIcon>
-            <ListItemText primary={"Hombres"} />
+            <ListItemText primary={"Men"} />
           </ListItem>
 
           <ListItem
@@ -101,9 +104,9 @@ export const SideMenu = () => {
             onClick={() => navigateTo("/category/women")}
           >
             <ListItemIcon>
-              <Image src={Ticket} alt="" />
+              <Image src={Famale} alt="" />
             </ListItemIcon>
-            <ListItemText primary={"Mujeres"} />
+            <ListItemText primary={"Women"} />
           </ListItem>
 
           <ListItem
@@ -112,23 +115,23 @@ export const SideMenu = () => {
             onClick={() => navigateTo("/category/kids")}
           >
             <ListItemIcon>
-              <Image src={Ticket} alt="" />
+              <Image src={Kids} alt="" />
             </ListItemIcon>
-            <ListItemText primary={"Niños"} />
+            <ListItemText primary={"Kids"} />
           </ListItem>
           {!isLoggedIn ? (
             <ListItem button onClick={() => navigateTo(`/auth/login?p=${router.asPath}`)}>
               <ListItemIcon>
                 <Image src={LogIn} alt="" />
               </ListItemIcon>
-              <ListItemText primary={"Ingresar"} />
+              <ListItemText primary={"LogIn"} />
             </ListItem>
           ) : (
             <ListItem button onClick={() => logout()}>
               <ListItemIcon>
                 <Image src={LogOut} alt="" />
               </ListItemIcon>
-              <ListItemText primary={"Salir"} />
+              <ListItemText primary={"LogOut"} />
             </ListItem>
           )}
 
@@ -148,20 +151,20 @@ export const SideMenu = () => {
                 <ListItemIcon>
                   <Image src={Shirt} alt="" />
                 </ListItemIcon>
-                <ListItemText primary={"Productos"} />
+                <ListItemText primary={"Products"} />
               </ListItem>
               <ListItem button onClick={() => navigateTo(`/admin/orders`)}>
                 <ListItemIcon>
                   <Image src={Ticket} alt="" />
                 </ListItemIcon>
-                <ListItemText primary={"Ordenes"} />
+                <ListItemText primary={"Orders"} />
               </ListItem>
 
               <ListItem button onClick={() => navigateTo(`/admin/users`)}>
                 <ListItemIcon>
                   <Image src={Users} alt="" />
                 </ListItemIcon>
-                <ListItemText primary={"Usuarios"} />
+                <ListItemText primary={"Users"} />
               </ListItem>
             </>
           )}

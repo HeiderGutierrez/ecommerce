@@ -35,10 +35,9 @@ const Custom404 = () => {
         display={"flex"}
         alignItems={"center"}
         justifyContent={"center"}
-        height={"calc(100vh - 200px)"}
         flexDirection={"column"}
       >
-        <Typography variant="h1" fontSize={100} fontWeight={600} mb={4}>
+        <Typography variant="h1" sx={{fontSize: {xs: 70, md: 100}}} fontWeight={600} mb={4}>
           OOPS!
         </Typography>
         <Typography variant="subtitle1" fontWeight={500}>

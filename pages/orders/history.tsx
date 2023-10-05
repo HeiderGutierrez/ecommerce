@@ -34,7 +34,7 @@ const columns: GridColDef[] = [
       );
     },
   },
-  { field: "date", headerName: "Creation Date", width: 300, sortable: false },
+  { field: "date", headerName: "Created On", width: 300, sortable: false },
   {
     field: "order",
     headerName: "Order",

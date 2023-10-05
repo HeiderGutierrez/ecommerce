@@ -180,7 +180,7 @@ const ProductAdminPage = ({ product }: Props) => {
   return (
     <>
       <AdminLayout
-        title={"Admin | Product"}
+        title={"Admin | Add Product"}
         subTitle={`Editando: ${product.title}`}
         icon={<DriveFileRenameOutline />}
       >
@@ -189,7 +189,7 @@ const ProductAdminPage = ({ product }: Props) => {
             display="flex"
             justifyContent="end"
             sx={{
-              mb: 1,
+              mb: 3,
               width: "100%",
               ".MuiOutlinedInput-root": {
                 borderRadius: 0,
@@ -210,304 +210,288 @@ const ProductAdminPage = ({ product }: Props) => {
 
           <Grid container spacing={2}>
             {/* Data */}
-            <Grid item xs={12} md={6} container>
-              <Grid item container>
-                <Grid item container gap={3}>
-                  <TextField
-                    label="Título"
-                    variant="outlined"
-                    size="small"
-                    sx={{
-                      width: { xs: "100%", md: "48%" },
-                      ".MuiOutlinedInput-root": {
-                        borderRadius: 0,
-                      },
-                    }}
-                    {...register("title", {
-                      required: "Este campo es requerido",
-                      minLength: { value: 2, message: "Mínimo 2 caracteres" },
-                    })}
-                    error={!!errors.title}
-                    helperText={errors.title?.message}
-                  />
+            <Grid item xs={12} display={'grid'} gap={4}>
+              <TextField
+                label="Título"
+                variant="outlined"
+                size="medium"
+                sx={{
+                  width: '100%',
+                  ".MuiOutlinedInput-root": {
+                    borderRadius: 0,
+                  },
+                }}
+                {...register("title", {
+                  required: "Este campo es requerido",
+                  minLength: { value: 2, message: "Mínimo 2 caracteres" },
+                })}
+                error={!!errors.title}
+                helperText={errors.title?.message}
+              />
 
-                  <TextField
-                    label="Slug - URL"
-                    variant="outlined"
-                    size="small"
-                    sx={{
-                      width: { xs: "100%", md: "48%" },
-                      ".MuiOutlinedInput-root": {
-                        borderRadius: 0,
-                      },
-                    }}
-                    {...register("slug", {
-                      required: "Este campo es requerido",
-                      validate: (val) =>
-                        val.trim().includes(" ")
-                          ? "No se pueden tener espaciós en blanco"
-                          : undefined,
-                    })}
-                    error={!!errors.slug}
-                    helperText={errors.slug?.message}
-                  />
+              <TextField
+                label="Slug - URL"
+                variant="outlined"
+                size="medium"
+                sx={{
+                  width: '100%',
+                  ".MuiOutlinedInput-root": {
+                    borderRadius: 0,
+                  },
+                }}
+                {...register("slug", {
+                  required: "Este campo es requerido",
+                  validate: (val) =>
+                    val.trim().includes(" ")
+                      ? "No se pueden tener espaciós en blanco"
+                      : undefined,
+                })}
+                error={!!errors.slug}
+                helperText={errors.slug?.message}
+              />
 
-                  <TextField
-                    label="Descripción"
-                    variant="outlined"
-                    size="small"
-                    multiline
-                    maxRows={4}
-                    sx={{
-                      width: "99%",
-                      ".MuiOutlinedInput-root": {
-                        borderRadius: 0,
-                      },
-                    }}
-                    {...register("description", {
-                      required: "Este campo es requerido",
-                    })}
-                    error={!!errors.description}
-                    helperText={errors.description?.message}
-                  />
+              <TextField
+                label="Descripción"
+                variant="outlined"
+                size="medium"
+                multiline
+                maxRows={4}
+                sx={{
+                  width: "100%",
+                  ".MuiOutlinedInput-root": {
+                    borderRadius: 0,
+                  },
+                }}
+                {...register("description", {
+                  required: "Este campo es requerido",
+                })}
+                error={!!errors.description}
+                helperText={errors.description?.message}
+              />
 
-                  <TextField
-                    label="Inventario"
-                    type="number"
-                    variant="outlined"
-                    size="small"
-                    sx={{
-                      width: { xs: "100%", md: "48%" },
-                      ".MuiOutlinedInput-root": {
-                        borderRadius: 0,
-                      },
-                    }}
-                    {...register("inStock", {
-                      required: "Este campo es requerido",
-                      minLength: {
-                        value: 0,
-                        message: "El valor mínimo debe ser 0",
-                      },
-                    })}
-                    error={!!errors.inStock}
-                    helperText={errors.inStock?.message}
-                  />
+              <TextField
+                label="Inventario"
+                type="number"
+                variant="outlined"
+                size="medium"
+                sx={{
+                  width: '100%',
+                  ".MuiOutlinedInput-root": {
+                    borderRadius: 0,
+                  },
+                }}
+                {...register("inStock", {
+                  required: "Este campo es requerido",
+                  minLength: {
+                    value: 0,
+                    message: "El valor mínimo debe ser 0",
+                  },
+                })}
+                error={!!errors.inStock}
+                helperText={errors.inStock?.message}
+              />
 
-                  <TextField
-                    label="Precio"
-                    type="number"
-                    variant="outlined"
-                    size="small"
-                    sx={{
-                      width: { xs: "100%", md: "48%" },
-                      ".MuiOutlinedInput-root": {
-                        borderRadius: 0,
-                      },
-                    }}
-                    {...register("price", {
-                      required: "Este campo es requerido",
-                      minLength: {
-                        value: 0,
-                        message: "El valor mínimo debe ser 0",
-                      },
-                    })}
-                    error={!!errors.price}
-                    helperText={errors.price?.message}
-                  />
+              <TextField
+                label="Precio"
+                type="number"
+                variant="outlined"
+                size="medium"
+                sx={{
+                  width: '100%',
+                  ".MuiOutlinedInput-root": {
+                    borderRadius: 0,
+                  },
+                }}
+                {...register("price", {
+                  required: "Este campo es requerido",
+                  minLength: {
+                    value: 0,
+                    message: "El valor mínimo debe ser 0",
+                  },
+                })}
+                error={!!errors.price}
+                helperText={errors.price?.message}
+              />
 
-                  <FormControl
-                    sx={{
-                      width: { xs: "100%", md: "48%" },
-                      ".MuiOutlinedInput-root": {
-                        borderRadius: 0,
-                      },
-                    }}
-                  >
-                    <FormLabel>Tipo</FormLabel>
-                    <RadioGroup
-                      row
-                      value={getValues("type")}
-                      onChange={({ target }) =>
-                        setValue("type", target.value, { shouldValidate: true })
-                      }
-                    >
-                      {validTypes.map((option) => (
-                        <FormControlLabel
-                          key={option}
-                          value={option}
-                          control={<Radio color="primary" />}
-                          label={capitalize(option)}
-                        />
-                      ))}
-                    </RadioGroup>
-                  </FormControl>
+              <FormControl
+                sx={{
+                  width: '100%',
+                  ".MuiOutlinedInput-root": {
+                    borderRadius: 0,
+                  },
+                }}
+              >
+                <FormLabel>Tipo</FormLabel>
+                <RadioGroup
+                  row
+                  value={getValues("type")}
+                  onChange={({ target }) =>
+                    setValue("type", target.value, { shouldValidate: true })
+                  }
+                >
+                  {validTypes.map((option) => (
+                    <FormControlLabel
+                      key={option}
+                      value={option}
+                      control={<Radio color="primary" />}
+                      label={capitalize(option)}
+                    />
+                  ))}
+                </RadioGroup>
+              </FormControl>
 
-                  <FormControl
-                    sx={{
-                      width: { xs: "100%", md: "48%" },
-                      ".MuiOutlinedInput-root": {
-                        borderRadius: 0,
-                      },
-                    }}
-                  >
-                    <FormLabel>Género</FormLabel>
-                    <RadioGroup
-                      row
-                      value={getValues("gender")}
-                      onChange={({ target }) =>
-                        setValue("gender", target.value, {
-                          shouldValidate: true,
-                        })
-                      }
-                    >
-                      {validGender.map((option) => (
-                        <FormControlLabel
-                          key={option}
-                          value={option}
-                          control={<Radio color="primary" />}
-                          label={capitalize(option)}
-                        />
-                      ))}
-                    </RadioGroup>
-                  </FormControl>
+              <FormControl
+                sx={{
+                  width: '100%',
+                  ".MuiOutlinedInput-root": {
+                    borderRadius: 0,
+                  },
+                }}
+              >
+                <FormLabel>Género</FormLabel>
+                <RadioGroup
+                  row
+                  value={getValues("gender")}
+                  onChange={({ target }) =>
+                    setValue("gender", target.value, {
+                      shouldValidate: true,
+                    })
+                  }
+                >
+                  {validGender.map((option) => (
+                    <FormControlLabel
+                      key={option}
+                      value={option}
+                      control={<Radio color="primary" />}
+                      label={capitalize(option)}
+                    />
+                  ))}
+                </RadioGroup>
+              </FormControl>
 
-                  <FormGroup>
-                    <FormLabel>Tallas</FormLabel>
-                    {validSizes.map((size) => (
-                      <FormControlLabel
-                        key={size}
-                        control={
-                          <Checkbox
-                            checked={getValues("sizes").includes(size)}
-                          />
-                        }
-                        label={size}
-                        onChange={() => onChangeSize(size)}
-                      />
-                    ))}
-                  </FormGroup>
-
-                  <TextField
-                    label="Etiquetas"
-                    variant="outlined"
-                    size="small"
-                    sx={{
-                      width: '100%',
-                      ".MuiOutlinedInput-root": {
-                        borderRadius: 0,
-                      },
-                    }}
-                    helperText="Presiona [spacio] para agregar"
-                    value={newTagValue}
-                    onChange={({ target }) => setNewTagValue(target.value)}
-                    onKeyUp={({ code }) =>
-                      code === "Space" ? onNewTag() : undefined
+              <FormGroup>
+                <FormLabel>Tallas</FormLabel>
+                {validSizes.map((size) => (
+                  <FormControlLabel
+                    key={size}
+                    control={
+                      <Checkbox checked={getValues("sizes").includes(size)} />
                     }
+                    label={size}
+                    onChange={() => onChangeSize(size)}
                   />
+                ))}
+              </FormGroup>
 
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      listStyle: "none",
-                      p: 0,
-                      m: 0,
-                    }}
-                    component="ul"
-                  >
-                    {getValues("tags").map((tag) => {
-                      return (
-                        <Chip
-                          key={tag}
-                          label={tag}
-                          onDelete={() => onDeleteTag(tag)}
-                          color="primary"
-                          size="small"
-                          sx={{ ml: 1, mt: 1 }}
-                        />
-                      );
-                    })}
-                  </Box>
-                </Grid>
-              </Grid>
-            </Grid>
+              <TextField
+                label="Etiquetas"
+                variant="outlined"
+                size="medium"
+                sx={{
+                  width: "100%",
+                  ".MuiOutlinedInput-root": {
+                    borderRadius: 0,
+                  },
+                }}
+                helperText="Presiona [spacio] para agregar"
+                value={newTagValue}
+                onChange={({ target }) => setNewTagValue(target.value)}
+                onKeyUp={({ code }) =>
+                  code === "Space" ? onNewTag() : undefined
+                }
+              />
 
-            {/* Tags e imagenes */}
-            <Grid item xs={12} md={6} container>
-              <Grid item container>
-                <Grid item container gap={3}>
-
-                  <Box display="flex" flexDirection="column">
-                    <FormLabel
-                      sx={{
-                        mb: 1,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        width: '100%',
-                        ".MuiOutlinedInput-root": {
-                          borderRadius: 0,
-                        },
-                      }}
-                    >
-                      Imágenes
-                      <Button
-                        color="secondary"
-                        variant="contained"
-                        size="large"
-                        startIcon={<UploadOutlined />}
-                        sx={{ mb: 3 }}
-                        onClick={() => fileInputRef.current?.click()}
-                      >
-                        Cargar imagen
-                      </Button>
-                    </FormLabel>
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      multiple
-                      accept="image/png, image/gif, image/jpeg"
-                      style={{ display: "none" }}
-                      onChange={onFilesSelected}
-                    />
-
+              <Box
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  listStyle: "none",
+                  p: 0,
+                  m: 0,
+                }}
+                component="ul"
+              >
+                {getValues("tags").map((tag) => {
+                  return (
                     <Chip
-                      label="Es necesario al 2 imagenes"
-                      color="error"
-                      variant="outlined"
-                      size="small"
-                      sx={{
-                        display:
-                          getValues("images").length >= 2 ? "none" : "block",
-                      }}
+                      key={tag}
+                      label={tag}
+                      onDelete={() => onDeleteTag(tag)}
+                      color="primary"
+                      size="medium"
+                      sx={{ ml: 1, mt: 1 }}
                     />
+                  );
+                })}
+              </Box>
+              <Box display="flex" flexDirection="column">
+                <FormLabel
+                  sx={{
+                    mb: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    ".MuiOutlinedInput-root": {
+                      borderRadius: 0,
+                    },
+                  }}
+                >
+                  Imágenes
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    size="large"
+                    startIcon={<UploadOutlined />}
+                    sx={{ mb: 3 }}
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    Cargar imagen
+                  </Button>
+                </FormLabel>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  multiple
+                  accept="image/png, image/gif, image/jpeg"
+                  style={{ display: "none" }}
+                  onChange={onFilesSelected}
+                />
 
-                    <Grid container spacing={2}>
-                      {getValues("images").map((img) => (
-                        <Grid item xs={4} sm={3} key={img}>
-                          <Card>
-                            <CardMedia
-                              component="img"
-                              className="fadeIn"
-                              image={img}
-                              alt={img}
-                            />
-                            <CardActions>
-                              <Button
-                                color="error"
-                                onClick={() => onDeleteImage(img)}
-                                startIcon={<DeleteOutlineOutlined />}
-                              >
-                                Borrar
-                              </Button>
-                            </CardActions>
-                          </Card>
-                        </Grid>
-                      ))}
+                <Chip
+                  label="Es necesario al 2 imagenes"
+                  color="error"
+                  variant="outlined"
+                  size="medium"
+                  sx={{
+                    display: getValues("images").length >= 2 ? "none" : "block",
+                  }}
+                />
+
+                <Grid container spacing={2}>
+                  {getValues("images").map((img) => (
+                    <Grid item xs={4} sm={3} key={img}>
+                      <Card>
+                        <CardMedia
+                          component="img"
+                          className="fadeIn"
+                          image={img}
+                          alt={img}
+                        />
+                        <CardActions>
+                          <Button
+                            color="error"
+                            onClick={() => onDeleteImage(img)}
+                            startIcon={<DeleteOutlineOutlined />}
+                          >
+                            Borrar
+                          </Button>
+                        </CardActions>
+                      </Card>
                     </Grid>
-                  </Box>
+                  ))}
                 </Grid>
-              </Grid>
+              </Box>
             </Grid>
           </Grid>
         </form>
@@ -524,7 +508,7 @@ const ProductAdminPage = ({ product }: Props) => {
         onClose={() => setIsSnackbar(false)}
         autoHideDuration={6000}
       >
-        <Alert severity="success">Producto modificado correctamente!</Alert>
+        <Alert severity="success">Product successfully modified!</Alert>
       </Snackbar>
     </>
   );

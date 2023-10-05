@@ -5,36 +5,53 @@ import { Chip, Grid } from "@mui/material";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import React from "react";
 import useSWR from "swr";
+import { format } from "date-fns";
+import { enUS } from "date-fns/locale";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "Order ID", width: 250 },
-  { field: "email", headerName: "Correo", width: 250 },
-  { field: "name", headerName: "Nombre Completo", width: 300 },
-  { field: "total", headerName: "Monto total", width: 300 },
+  { field: "email", headerName: "Email", width: 250 },
+  { field: "name", headerName: "Full Name", width: 300 },
+  { field: "total", headerName: "Total Amount", width: 300 },
   {
     field: "isPaid",
-    headerName: "Pagada",
+    headerName: "Status",
     renderCell: (params) => {
       return params.row.isPaid ? (
-        <Chip variant="outlined" label="Paid" color="success" sx={{borderRadius: 0}} />
+        <Chip
+          variant="outlined"
+          label="Paid"
+          color="success"
+          sx={{ borderRadius: 0 }}
+        />
       ) : (
-        <Chip variant="outlined" label="Unpaid" color="error" sx={{borderRadius: 0}} />
+        <Chip
+          variant="outlined"
+          label="Unpaid"
+          color="error"
+          sx={{ borderRadius: 0 }}
+        />
       );
     },
   },
-  { field: "noProducts", headerName: "No. Productos", align: "center" },
+  {
+    field: "noProducts",
+    headerName: "No. Products",
+    align: "center",
+    width: 150,
+  },
   {
     field: "check",
-    headerName: "Ver Orden",
+    headerName: "View Order",
     renderCell: (params) => {
       return (
         <a href={`/admin/orders/${params.row.id}`} target="_blank">
-          Ver Orden
+          View Order
         </a>
       );
     },
   },
-  { field: "createdAt", headerName: "Creada el" },
+  { field: "createdAt", headerName: "Created On", width: 300 },
 ];
 
 const OrdersPage = () => {
@@ -42,15 +59,25 @@ const OrdersPage = () => {
   if (!data && !error) {
     return <></>;
   }
-  const rows: GridRowsProp = data!.map((order) => ({
-    id: order._id,
-    email: (order.user as IUser)?.email || "User not available",
-    name: (order.user as IUser)?.name || "User not available",
-    total: order.total,
-    isPaid: order.isPaid,
-    noProducts: order.numberOfItems,
-    createdAt: order.createdAt,
-  }));
+  const rows: GridRowsProp = data!.map((order) => {
+    let dateFormatted = "";
+
+    if (order.createdAt) {
+      dateFormatted = format(new Date(order.createdAt), "EEEE, MMMM d", {
+        locale: enUS,
+      });
+    }
+
+    return {
+      id: order._id,
+      email: (order.user as IUser)?.email || "User not available",
+      name: (order.user as IUser)?.name || "User not available",
+      total: order.total,
+      isPaid: order.isPaid,
+      noProducts: order.numberOfItems,
+      createdAt: dateFormatted,
+    };
+  });
 
   return (
     <AdminLayout
@@ -66,7 +93,7 @@ const OrdersPage = () => {
             disableColumnFilter
             disableColumnMenu
             rowSelection={false}
-            rowHeight={150}
+            rowHeight={60}
             sx={{
               border: "none",
               ".MuiDataGrid-columnHeaderTitle": {

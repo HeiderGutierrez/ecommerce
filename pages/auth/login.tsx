@@ -15,6 +15,7 @@ import {
   InputAdornment,
   InputLabel,
   Link,
+  OutlinedInput,
   TextField,
   Typography,
 } from "@mui/material";
@@ -40,7 +41,7 @@ const LoginPage = () => {
   const [showError, setShowError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [providers, setProviders] = useState<any>({});
-  
+
   useEffect(() => {
     getProviders().then((prov) => {
       setProviders(prov);
@@ -62,113 +63,144 @@ const LoginPage = () => {
 
   return (
     <AuthLayout title="Ingresar">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Box sx={{ width: 350, padding: {xs: '20px', md: '50px'} }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Typography variant="h1" component={"h1"}>
-                Iniciar Sesión
-              </Typography>
-              {showError && (
-                <Chip
-                  color="error"
-                  variant="outlined"
-                  label="Usuario no registrado"
-                  icon={<ErrorOutline />}
-                  className="fadeIn"
-                  sx={{ width: "100%", mt: 1 }}
-                />
-              )}
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="email"
-                label="Correo"
-                variant="filled"
-                fullWidth
-                size="small"
-                {...register("email", {
-                  required: "Este campo es obligatorio",
-                  validate: validations.isEmail,
-                })}
-                error={!!errors.email}
-                helperText={errors.email?.message}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControl variant="filled" fullWidth error={!!errors.password}>
-                <InputLabel htmlFor="filled-adornment-password">
-                  Password
-                </InputLabel>
-                <FilledInput
-                  id="filled-adornment-password"
-                  type={showPassword ? "text" : "password"}
-                  size="small"
-                  {...register("password", {
-                    required: "Este campo es obligatorio",
-                    minLength: {
-                      value: 6,
-                      message: "Debe tener minimo 6 caracteres",
-                    },
-                  })}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-                <FormHelperText>{errors.password?.message}</FormHelperText>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              <Button type="submit" fullWidth color="primary" size="large" variant="contained">
-                Ingresar
-              </Button>
-            </Grid>
-            <Grid item xs={12} textAlign={"center"}>
-              <NextLink
-                href={
-                  router.query.p
-                    ? `/auth/register?p=${router.query.p}`
-                    : "/auth/register"
-                }
-                passHref
-                legacyBehavior
-              >
-                <Link>
-                  <Typography>¿No tienes una cuenta?</Typography>
-                </Link>
-              </NextLink>
-            </Grid>
-            <Grid item xs={12} textAlign={"center"}>
-              <Divider sx={{ width: "100%", mb: 2 }} />
-              {Object.values(providers).map((provider: any) => {
-                if (provider.id === "credentials") {
-                  return <div key={provider.id}></div>;
-                }
-                return (
-                  <Button
-                    key={provider.id}
+      <Box
+        sx={{
+          width: {xs: '100%', md: 450},
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+        }}
+      >
+        <Typography variant="subtitle1" fontSize={20} fontWeight={500} mb={3}>
+          Login
+        </Typography>
+        <Box
+          sx={{
+            width: "100%",
+            padding: { xs: "20px", md: "55px" },
+            background: "#F7F7F7",
+          }}
+        >
+          <form onSubmit={handleSubmit(onSubmit)} style={{width: '100%'}}>
+            <Grid container gap={3}>
+              <Grid item xs={12}>
+                {showError && (
+                  <Chip
+                    color="error"
                     variant="outlined"
-                    fullWidth
-                    color="primary"
-                    sx={{ mb: 1 }}
-                    onClick={() => signIn(provider.id)}
-                  >
-                    {provider.name}
-                  </Button>
-                );
-              })}
+                    label="User not registered"
+                    icon={<ErrorOutline />}
+                    className="fadeIn"
+                    sx={{ width: "100%", mt: 1 }}
+                  />
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl variant="outlined" error={!!errors.email} fullWidth>
+                  <label htmlFor="outlined-email" style={{marginBottom: 12, fontFamily: 'Source Sans Pro ,sans-serif', fontSize: 14}}>
+                    Email
+                  </label>
+                  <OutlinedInput
+                    type="email"
+                    id="outlined-email"
+                    size="small"
+                    sx={{
+                      backgroundColor: '#FFFFFF',
+                      borderRadius: 0
+                    }}
+                    {...register("email", {
+                      required: "This field is required",
+                      validate: validations.isEmail,
+                    })}
+                  />
+                  <FormHelperText>{errors.email?.message}</FormHelperText>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl variant="outlined" fullWidth error={!!errors.password}>
+                  <label htmlFor="outlined-password" style={{marginBottom: 12, fontFamily: 'Source Sans Pro ,sans-serif', fontSize: 14}}>
+                    Password
+                  </label>
+                  <OutlinedInput
+                    id="outlined-password"
+                    type={showPassword ? "text" : "password"}
+                    size="small"
+                    sx={{
+                      backgroundColor: '#FFFFFF',
+                      borderRadius: 0
+                    }}
+                    {...register("password", {
+                      required: "This field is required",
+                      minLength: {
+                        value: 6,
+                        message: "Debe tener minimo 6 caracteres",
+                      },
+                    })}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                  <FormHelperText>{errors.password?.message}</FormHelperText>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  color="secondary"
+                  size="large"
+                  variant="contained"
+                >
+                  LOG IN
+                </Button>
+              </Grid>
+              <Grid item xs={12} textAlign={"center"}>
+                <NextLink
+                  href={
+                    router.query.p
+                      ? `/auth/register?p=${router.query.p}`
+                      : "/auth/register"
+                  }
+                  passHref
+                  legacyBehavior
+                >
+                  <Link>
+                    <Typography>Don&apos;t have an account?</Typography>
+                  </Link>
+                </NextLink>
+              </Grid>
+              <Grid item xs={12} textAlign={"center"}>
+                <Divider sx={{ width: "100%", mb: 2 }} />
+                {Object.values(providers).map((provider: any) => {
+                  if (provider.id === "credentials") {
+                    return <div key={provider.id}></div>;
+                  }
+                  return (
+                    <Button
+                      key={provider.id}
+                      variant="outlined"
+                      fullWidth
+                      color="secondary"
+                      sx={{ mb: 1 }}
+                      onClick={() => signIn(provider.id)}
+                    >
+                      {provider.name}
+                    </Button>
+                  );
+                })}
+              </Grid>
             </Grid>
-          </Grid>
+          </form>
         </Box>
-      </form>
+      </Box>
     </AuthLayout>
   );
 };
@@ -177,7 +209,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
   query,
 }) => {
-  const session = await getSession({req});
+  const session = await getSession({ req });
 
   const { p = "/" } = query;
 

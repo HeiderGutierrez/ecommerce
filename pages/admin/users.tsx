@@ -39,8 +39,8 @@ const UsersPage = () => {
   };
 
   const columns: GridColDef[] = [
-    { field: "email", headerName: "Correo", width: 250 },
-    { field: "name", headerName: "Nombre Completo", width: 300 },
+    { field: "email", headerName: "Email", width: 250 },
+    { field: "name", headerName: "Full Name", width: 300 },
     {
       field: "role",
       headerName: "Rol",
@@ -87,7 +87,7 @@ const UsersPage = () => {
             disableColumnFilter
             disableColumnMenu
             rowSelection={false}
-            rowHeight={150}
+            rowHeight={60}
             sx={{
               border: "none",
               ".MuiDataGrid-columnHeaderTitle": {

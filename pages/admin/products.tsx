@@ -12,7 +12,8 @@ import Plus from '../../public/icons/plus.svg';
 const columns: GridColDef[] = [
   {
     field: "img",
-    headerName: "Foto",
+    headerName: "Image",
+    sortable: false,
     renderCell: (params) => {
       return (
         <a href={`/product/${params.row.slug}`} target="_blank">
@@ -29,26 +30,16 @@ const columns: GridColDef[] = [
     field: "title",
     headerName: "Title",
     width: 250,
-    renderCell: (params) => {
-      return (
-        <NextLink
-          href={`/admin/products/${params.row.slug}`}
-          passHref
-          legacyBehavior
-        >
-          <Link underline="always">{params.row.title}</Link>
-        </NextLink>
-      );
-    },
   },
-  { field: "gender", headerName: "Género" },
-  { field: "type", headerName: "Tipo" },
-  { field: "inStock", headerName: "Inventario" },
-  { field: "price", headerName: "Precio" },
-  { field: "sizes", headerName: "Tallas", width: 250 },
+  { field: "gender", headerName: "Gender" },
+  { field: "type", headerName: "Type" },
+  { field: "inStock", headerName: "Inventory" },
+  { field: "price", headerName: "Price" },
+  { field: "sizes", headerName: "Sizes", width: 250 },
   {
     field: "options",
-    headerName: "Opciones",
+    headerName: "",
+    sortable: false,
     renderCell: (params) => {
       return (
         <Button
@@ -56,7 +47,7 @@ const columns: GridColDef[] = [
           color="secondary"
           href={`/admin/products/${params.row.slug}`}
         >
-          Editar
+          Edit
         </Button>
       );
     },
@@ -92,7 +83,7 @@ const ProductsPage = () => {
           href="/admin/products/new"
           variant="contained"
         >
-          add new product
+          add product
         </Button>
       </Box>
       <Grid container>

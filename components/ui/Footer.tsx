@@ -58,7 +58,7 @@ const itemData = [
 
 export const Footer = () => {
   return (
-    <Box sx={{ background: "#1E1E1E", width: "100%" }}>
+    <Box sx={{ background: "#1E1E1E", width: "100%", mt: 10}}>
       <Box
         sx={{
           margin: "0 auto",

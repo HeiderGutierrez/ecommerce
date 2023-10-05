@@ -20,6 +20,7 @@ import Image from "next/image";
 import Searchicon from "../../public/icons/search.svg";
 import ShoppingCartIcon from "../../public/icons/shopping-cart.svg";
 import MenuIcon from "../../public/icons/menu.svg";
+import Heart from '../../public/icons/heart.svg';
 
 export const Navbar = () => {
   const { openSideMenu } = useContext(UiContext);
@@ -42,7 +43,7 @@ export const Navbar = () => {
   };
 
   return (
-    <AppBar sx={{width: '100%', height: '70px'}}>
+    <AppBar sx={{ width: "100%", height: "70px" }}>
       <Toolbar
         sx={{
           margin: "0 auto",
@@ -58,12 +59,14 @@ export const Navbar = () => {
       >
         <NextLink href={"/"} passHref legacyBehavior>
           <Link display={"flex"} alignItems={"center"}>
-            <Typography variant="h1" sx={{ fontSize: { xs: 20, md: 30 }, textTransform: 'uppercase' }}>
-              Expre<span style={{fontWeight: 500}} >ssion</span>
+            <Typography
+              variant="h1"
+              sx={{ fontSize: { xs: 20, md: 30 }, textTransform: "uppercase" }}
+            >
+              Expre<span style={{ fontWeight: 500 }}>ssion</span>
             </Typography>
           </Link>
         </NextLink>
-        <Box flex={1} sx={{ display: { xs: "none", md: "block" } }} />
         {!isSearchVisible && (
           <Box sx={{ display: { xs: "none", md: "block" } }} className="fadeIn">
             <NextLink href={"/category/men"} passHref legacyBehavior>
@@ -101,9 +104,7 @@ export const Navbar = () => {
             </NextLink>
           </Box>
         )}
-
-        <Box flex={1} sx={{ display: { xs: "none", md: "block" } }} />
-        <Box display={'flex'} alignItems={'center'}>
+        <Box display={"flex"} alignItems={"center"}>
           {/* Pantallas grandes */}
           {!isSearchVisible && (
             <IconButton
@@ -143,6 +144,13 @@ export const Navbar = () => {
           >
             <Image src={Searchicon} alt="Search Icon" />
           </IconButton>
+          <NextLink href={"/wishlist"} passHref legacyBehavior>
+            <Link>
+              <IconButton>
+                <Image src={Heart} alt="Heart Icon" />
+              </IconButton>
+            </Link>
+          </NextLink>
           <NextLink href={"/cart"} passHref legacyBehavior>
             <Link>
               <IconButton>

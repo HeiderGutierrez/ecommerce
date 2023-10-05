@@ -1,8 +1,7 @@
 import { ShopLayout } from "@/components/layouts";
-import { Box, Button, Link, Typography } from "@mui/material";
-import EmptyCart from '../../public/empty-cart.svg';
-import NextLink from 'next/link';
-import Image from 'next/image';
+import { Box, Button, Typography } from "@mui/material";
+import EmptyCart from "../../public/empty-cart.svg";
+import Image from "next/image";
 
 const EmptyPage = () => {
   return (
@@ -14,13 +13,25 @@ const EmptyPage = () => {
         display={"flex"}
         alignItems={"center"}
         justifyContent={"center"}
-        flexDirection={'column'}
+        flexDirection={"column"}
       >
-        <Image src={EmptyCart} alt="Boy sitting" style={{width: '30%', height: 'auto'}} />
+        <Box sx={{width: {xs: '50%', md: '30%'}}}>
+          <Image
+            src={EmptyCart}
+            alt="Boy sitting"
+            style={{ width: "100%", height: "auto" }}
+          />
+        </Box>
         <Box margin={2}>
-        <Typography variant="h1" fontSize={60} fontWeight={600} mb={4}>
-          Your cart is empty
-        </Typography>
+          <Typography
+            variant="h1"
+            sx={{ fontSize: { xs: 30, md: 60 } }}
+            textAlign={"center"}
+            fontWeight={600}
+            mb={4}
+          >
+            Your cart is empty
+          </Typography>
         </Box>
         <Box>
           <Button href="/" variant="contained" color="secondary" size="large">

@@ -6,6 +6,7 @@ import type { AppProps } from 'next/app'
 import { SWRConfig } from 'swr'
 import { SessionProvider } from "next-auth/react"
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
+import { WishlistProvider } from '@/context/wishlist'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -16,11 +17,13 @@ export default function App({ Component, pageProps }: AppProps) {
         }}>
           <AuthProvider>
             <CartProvider>
-              <UiProvider>
-                <ThemeProvider theme={lightTheme}>
-                  <Component {...pageProps} />
-                </ThemeProvider>
-              </UiProvider>
+              <WishlistProvider>
+                <UiProvider>
+                  <ThemeProvider theme={lightTheme}>
+                    <Component {...pageProps} />
+                  </ThemeProvider>
+                </UiProvider>
+              </WishlistProvider>
             </CartProvider>
           </AuthProvider>
         </SWRConfig>

@@ -118,15 +118,33 @@ const ProductPage = ({ product }: Props) => {
                 label="No units available"
                 color="error"
                 variant="filled"
-                sx={{borderRadius: 0}}
+                sx={{ borderRadius: 0 }}
               />
             ) : (
-              <Box display={"flex"} alignItems={"center"} gap={4} mb={3}>
-                <ItemCounter
-                  currentValue={tempCartProduct.quantity}
-                  updatedQuantity={onUpdateQuantity}
-                  maxValue={product.inStock > 10 ? 10 : product.inStock}
-                />
+              <Box
+                display={"flex"}
+                sx={{
+                  flexDirection: { xs: "column", md: "row" },
+                  alignItems: { xs: "flex-start", md: "center" },
+                }}
+                gap={4}
+                mb={3}
+              >
+                <Box display={"flex"} alignItems={"baseline"} gap={4}>
+                  <Typography
+                    variant={"h2"}
+                    fontSize={14}
+                    textTransform={"uppercase"}
+                    sx={{display: {xs: "block", md: "none"}}}
+                  >
+                    Quantity
+                  </Typography>
+                  <ItemCounter
+                    currentValue={tempCartProduct.quantity}
+                    updatedQuantity={onUpdateQuantity}
+                    maxValue={product.inStock > 10 ? 10 : product.inStock}
+                  />
+                </Box>
                 <Button
                   color="primary"
                   size="large"

@@ -1,6 +1,5 @@
-import { useMemo, useState } from "react";
-import NextLink from "next/link";
-import { IProduct } from "@/interfaces";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { IProduct, IWishlistProduct } from "@/interfaces";
 import {
   Grid,
   Card,
@@ -8,28 +7,55 @@ import {
   CardMedia,
   Box,
   Typography,
-  Link,
   Chip,
   IconButton,
 } from "@mui/material";
 import { ButtonProduct } from "../ui/ButtonProduct";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import {
+  Favorite,
   FavoriteBorderOutlined,
   VisibilityOutlined,
 } from "@mui/icons-material";
 import { currency } from "@/utils";
+import { WishlistContext } from "@/context/wishlist";
+
 
 interface Props {
   product: IProduct;
 }
 
 export const ProductCard = ({ product }: Props) => {
+  const { addProductToWishlist, removeWishlistProduct, wishlist } = useContext(WishlistContext)
+  const isProductInWishlist = wishlist.some(
+    (item) => item._id === product._id
+  );
+  const [isInWishlist, setIsInWishlist] = useState(isProductInWishlist);
   const [isHovered, setIsHovered] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
+
   const productImage = useMemo(() => {
     return isHovered ? product.images[1] : product.images[0];
   }, [isHovered, product.images]);
+
+
+  const handleWishlistButtonClick = () => {
+    const tempWishlistProduct: IWishlistProduct = {
+      _id: product._id,
+      image: product.images[0],
+      price: product.price,
+      title: product.title,
+      slug: product.slug,
+      quantity: product.inStock,
+    };
+    if (isInWishlist) {
+      removeWishlistProduct(tempWishlistProduct);
+    } else {
+      addProductToWishlist(tempWishlistProduct);
+    }
+    setIsInWishlist(!isInWishlist);
+  };
+
   return (
     <Grid
       item
@@ -81,8 +107,13 @@ export const ProductCard = ({ product }: Props) => {
               color: "#ffffff"
             },
           }}
+          onClick={handleWishlistButtonClick}
         >
-          <FavoriteBorderOutlined sx={{fontSize: 14}} />
+          {isInWishlist ? (
+            <Favorite sx={{fontSize: 14}} />
+            ) : (
+            <FavoriteBorderOutlined sx={{fontSize: 14}} />
+          )}
         </IconButton>
         <Box
           sx={{

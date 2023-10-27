@@ -127,7 +127,6 @@ export const ProductCard = ({ product }: Props) => {
           <ButtonProduct
             iconButton={<ShoppingCartOutlinedIcon fontSize="small" />}
             textButton="Add to cart"
-            isHide={true}
           />
           <ButtonProduct
             iconButton={<VisibilityOutlined fontSize="small" />}

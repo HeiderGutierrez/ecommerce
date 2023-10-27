@@ -83,7 +83,6 @@ export const lightTheme = createTheme({
           position: 'relative',
           transition: 'all .3s ease-in-out',
           boxShadow: 'none',
-          height: 400,
           '&:hover': {
             '.MuiBox-root': {
               bottom: 0,

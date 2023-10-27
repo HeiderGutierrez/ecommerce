@@ -31,7 +31,7 @@ export const ShopLayout = ({
       {/* sidebar */}
       <SideMenu />
       {/* main */}
-      <Box sx={{ background: "#232323", padding: "20px", my: "70px" }}>
+      <Box sx={{ background: "#232323", padding: "20px", mt: "70px", mb: {xs: '0', sm: '70px'} }}>
         <Box
           sx={{
             margin: "0 auto",

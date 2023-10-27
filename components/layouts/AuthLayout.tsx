@@ -12,12 +12,12 @@ export const AuthLayout = ({ children, title }: Props) => {
       <Head>
         <title>{title}</title>
       </Head>
-      <main>
+      <main className="main__auth">
         <Box
           display={"flex"}
           justifyContent={"center"}
           alignItems={"center"}
-          height={"100vh"}
+          height={"100%"}
         >
           {children}
         </Box>

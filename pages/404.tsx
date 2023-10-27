@@ -28,8 +28,8 @@ const Custom404 = () => {
   };
   return (
     <ShopLayout
-      title={"Pagina no encontrada"}
-      pageDescription={"Pagina no encontrada"}
+      title={"Page not found"}
+      pageDescription={"Page not found"}
     >
       <Box
         display={"flex"}

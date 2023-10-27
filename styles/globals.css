@@ -30,6 +30,10 @@ body {
   margin: 0;
 }
 
+.main__auth {
+  height: 100vh;
+}
+
 .fadeIn {
   -webkit-animation-duration: 0.5s;
   animation-duration: 0.5s;

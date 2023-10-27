@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { IProduct, IWishlistProduct } from "@/interfaces";
 import {
   Grid,
@@ -9,6 +9,7 @@ import {
   Typography,
   Chip,
   IconButton,
+  Link,
 } from "@mui/material";
 import { ButtonProduct } from "../ui/ButtonProduct";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -19,17 +20,16 @@ import {
 } from "@mui/icons-material";
 import { currency } from "@/utils";
 import { WishlistContext } from "@/context/wishlist";
-
+import NextLink from "next/link";
 
 interface Props {
   product: IProduct;
 }
 
 export const ProductCard = ({ product }: Props) => {
-  const { addProductToWishlist, removeWishlistProduct, wishlist } = useContext(WishlistContext)
-  const isProductInWishlist = wishlist.some(
-    (item) => item._id === product._id
-  );
+  const { addProductToWishlist, removeWishlistProduct, wishlist } =
+    useContext(WishlistContext);
+  const isProductInWishlist = wishlist.some((item) => item._id === product._id);
   const [isInWishlist, setIsInWishlist] = useState(isProductInWishlist);
   const [isHovered, setIsHovered] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
@@ -37,7 +37,6 @@ export const ProductCard = ({ product }: Props) => {
   const productImage = useMemo(() => {
     return isHovered ? product.images[1] : product.images[0];
   }, [isHovered, product.images]);
-
 
   const handleWishlistButtonClick = () => {
     const tempWishlistProduct: IWishlistProduct = {
@@ -65,63 +64,74 @@ export const ProductCard = ({ product }: Props) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Card>
-        <CardActionArea sx={{height: '100%', cursor: {xs: 'pointer', md: 'default'}}}>
-          {product.inStock === 0 && (
-            <Chip
-              color="info"
-              label="Not available"
-              sx={{
-                position: "absolute",
-                top: "10px",
-                left: "10px",
-                zIndex: 100,
-                borderRadius: 0,
-              }}
-            />
-          )}
-          <CardMedia
-            component={"img"}
-            image={productImage}
-            alt={product.title}
-            className="fadeIn"
-            onLoad={() => setIsImageLoading(true)}
-            sx={{
-              height: '100%',
-              objectFit: 'cover'
-            }}
-          />
-        </CardActionArea>
+        <NextLink
+          href={`/product/${product.slug}`}
+          passHref
+          legacyBehavior
+          prefetch={false}
+        >
+          <Link>
+            <CardActionArea
+              sx={{ height: "100%", cursor: { xs: "pointer", md: "default" } }}
+            >
+              {product.inStock === 0 && (
+                <Chip
+                  color="info"
+                  label="Not available"
+                  sx={{
+                    position: "absolute",
+                    top: "10px",
+                    left: "10px",
+                    zIndex: 100,
+                    borderRadius: 0,
+                  }}
+                />
+              )}
+              <CardMedia
+                component={"img"}
+                image={productImage}
+                alt={product.title}
+                className="fadeIn"
+                onLoad={() => setIsImageLoading(true)}
+                sx={{
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </CardActionArea>
+          </Link>
+        </NextLink>
         <IconButton
           sx={{
             width: 30,
             height: 30,
             position: "absolute",
             top: 10,
-            right: {xs: 10, md: -36},
+            right: { xs: 10, md: -36 },
             transition: "all .3s ease-in-out",
             background: "#ffffff",
             color: "#232323",
-            boxShadow: '0 1px 10px 1px rgba(0,0,0,0.1)' ,
+            boxShadow: "0 1px 10px 1px rgba(0,0,0,0.1)",
             "&:hover": {
               background: "#232323",
-              color: "#ffffff"
+              color: "#ffffff",
             },
           }}
           onClick={handleWishlistButtonClick}
         >
           {isInWishlist ? (
-            <Favorite sx={{fontSize: 14}} />
-            ) : (
-            <FavoriteBorderOutlined sx={{fontSize: 14}} />
+            <Favorite sx={{ fontSize: 14 }} />
+          ) : (
+            <FavoriteBorderOutlined sx={{ fontSize: 14 }} />
           )}
         </IconButton>
         <Box
           sx={{
             position: "absolute",
-            bottom: { xs: 0, md: -40},
+            bottom: { xs: 0, md: -40 },
             width: "100%",
             transition: "all .3s ease-in-out",
-            display: "flex"
+            display: "flex",
           }}
         >
           <ButtonProduct
@@ -143,11 +153,8 @@ export const ProductCard = ({ product }: Props) => {
         <Typography fontWeight={600} color={"secondary"} fontSize={14}>
           {product.title}
         </Typography>
-        <Typography
-          fontWeight={500}
-          fontSize={"14px"}
-        >
-          {currency.format( product.price )}
+        <Typography fontWeight={500} fontSize={"14px"}>
+          {currency.format(product.price)}
         </Typography>
       </Box>
     </Grid>

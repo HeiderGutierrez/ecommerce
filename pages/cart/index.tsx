@@ -23,7 +23,7 @@ const CartPage = () => {
   }, [isLoaded, cart, router]);
 
   return (
-    <ShopLayout title="Cart" pageDescription="Carrito de compras">
+    <ShopLayout title="Cart" pageDescription="Shopping cart">
       <Grid container spacing={4}>
         <Grid item xs={12} sm={7}>
           <CartList editable={true} />

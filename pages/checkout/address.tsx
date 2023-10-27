@@ -1,5 +1,5 @@
 import { ShopLayout } from "@/components/layouts";
-import { countries, jwtToken } from "@/utils";
+import { countries } from "@/utils";
 import {
   Box,
   Button,
@@ -7,13 +7,9 @@ import {
   FormHelperText,
   Grid,
   InputLabel,
-  MenuItem,
   OutlinedInput,
-  Select,
-  TextField,
   Typography,
 } from "@mui/material";
-import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
@@ -73,8 +69,8 @@ const AddressPage = () => {
   }, [reset]);
   return (
     <ShopLayout
-      title="Dirección"
-      pageDescription="Confirmar dirección de destino"
+      title="Address"
+      pageDescription="Confirm destination address"
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Typography variant="h1" component={"h1"} mb={2}>

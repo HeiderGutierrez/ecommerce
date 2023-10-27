@@ -80,8 +80,8 @@ const HistoryPage = ({ orders }: Props) => {
 
   return (
     <ShopLayout
-      title="Historial de ordenes"
-      pageDescription="Historial de ordenes del cliente"
+      title="Order history"
+      pageDescription="Customer order history"
     >
       <Grid container>
         <Grid item xs={12}>

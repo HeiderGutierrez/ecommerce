@@ -16,7 +16,7 @@ export default function SearchPage({ products, foundProducts, query }: Props) {
   return (
     <ShopLayout
       title={"Search"}
-      pageDescription={"Encuentra los mejores productos de Teslo"}
+      pageDescription={"Find the best Expression products"}
     >
       <Box mb={2}>
         {foundProducts ? (

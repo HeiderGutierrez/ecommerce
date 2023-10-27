@@ -9,7 +9,7 @@ export default function MenPage() {
   return (
     <ShopLayout
       title={"Men"}
-      pageDescription={"Encuentra los mejores productos de Teslo"}
+      pageDescription={"Find the best Expression products"}
     >
       <Box display={"flex"} justifyContent={"flex-start"} alignItems={"center"} mb={2}>
         <Typography variant={"body1"} sx={{color: "#5E5E5E" }}>

@@ -24,15 +24,15 @@ export default function HomePage() {
 
   // Lista desplegable para seleccionar el criterio de ordenamiento
   const selectOptions = [
-    { value: "", label: "Sin ordenar" },
-    { value: "asc", label: "Ascendente" },
-    { value: "desc", label: "Descendente" },
+    { value: "", label: "Unsorted" },
+    { value: "asc", label: "Ascendant" },
+    { value: "desc", label: "Descending" },
   ];
 
   return (
     <ShopLayout
-      title={"Expression | Inicio"}
-      pageDescription={"Encuentra los mejores productos de Teslo"}
+      title={"Expression | Home"}
+      pageDescription={"Find the best Expression products"}
     >
       <Box
         display={"flex"}
@@ -45,9 +45,9 @@ export default function HomePage() {
         </Typography>
         <Box sx={{ width: 200 }}>
           <FormControl fullWidth size="small">
-            <InputLabel>Ordenar por:</InputLabel>
+            <InputLabel>Order by:</InputLabel>
             <Select
-              label="Ordenar por:"
+              label="Order by:"
               value={orderBy}
               onChange={handleChange}
               sx={{borderRadius: 0}}

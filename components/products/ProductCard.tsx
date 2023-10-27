@@ -59,7 +59,7 @@ export const ProductCard = ({ product }: Props) => {
   return (
     <Grid
       item
-      xs={12}
+      xs={6}
       sm={3}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -121,11 +121,13 @@ export const ProductCard = ({ product }: Props) => {
             bottom: { xs: 0, md: -40},
             width: "100%",
             transition: "all .3s ease-in-out",
+            display: "flex"
           }}
         >
           <ButtonProduct
             iconButton={<ShoppingCartOutlinedIcon fontSize="small" />}
             textButton="Add to cart"
+            isHide={true}
           />
           <ButtonProduct
             iconButton={<VisibilityOutlined fontSize="small" />}

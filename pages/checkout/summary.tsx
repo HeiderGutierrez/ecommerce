@@ -42,8 +42,8 @@ const SummaryPage = () => {
 
   return (
     <ShopLayout
-      title="Resumen de la orden"
-      pageDescription="Resumen de la orden"
+      title="Order summary"
+      pageDescription="Order summary"
     >
       <Typography variant="h1" component={"h1"} mb={2}>
         Summary

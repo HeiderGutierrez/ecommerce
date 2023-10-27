@@ -1,4 +1,3 @@
-import { tesloApi } from "@/axiosApi";
 import { AuthLayout } from "@/components/layouts";
 import { AuthContext } from "@/context";
 import { validations } from "@/utils";
@@ -7,16 +6,13 @@ import {
   Box,
   Button,
   Chip,
-  FilledInput,
   FormControl,
   FormHelperText,
   Grid,
   IconButton,
   InputAdornment,
-  InputLabel,
   Link,
   OutlinedInput,
-  TextField,
   Typography,
 } from "@mui/material";
 import { GetServerSideProps } from "next";
@@ -25,7 +21,6 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { authOptions } from "../api/auth/[...nextauth]";
 
 type FormData = {
   name: string;

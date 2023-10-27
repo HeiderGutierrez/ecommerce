@@ -60,8 +60,8 @@ const OrderPage = ({ order }: Props) => {
   };
   return (
     <ShopLayout
-      title="Resumen de la orden #"
-      pageDescription="Resumen de la orden"
+      title="Order summary #"
+      pageDescription="Order summary"
     >
       <Typography variant="h1" component={"h1"} fontSize={20} mb={2}>
         Order summary # {order._id}

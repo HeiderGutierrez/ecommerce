@@ -7,7 +7,7 @@ const EmptyPage = () => {
   return (
     <ShopLayout
       title={"Empty Cart"}
-      pageDescription={"No hay articulos en el carrito"}
+      pageDescription={"No items in cart"}
     >
       <Box
         display={"flex"}

@@ -77,7 +77,7 @@ export const CartList = ({ editable = false, products }: Props) => {
     {
       field: "quantity",
       headerName: "Quantity",
-      width: 100,
+      width: 150,
       sortable: false,
       renderCell(params) {
         const product = params.row.product;
